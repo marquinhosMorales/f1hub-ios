@@ -166,7 +166,7 @@ extension Race {
         winner: nil,
         teamWinner: nil
     )
-    
+        
     static func mockRaces() -> [Race] {
         return [mockAustralia, mockSpain]
     }

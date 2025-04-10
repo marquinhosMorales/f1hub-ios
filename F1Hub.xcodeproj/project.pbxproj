@@ -19,6 +19,7 @@
 		E03DB77E2DAF038400C2A18D /* Exceptions for "F1Hub" folder in "F1Hub" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				Models/Driver.swift,
 				Resources/Info.plist,
 			);
 			target = E09C35472DA73C7B0054C99E /* F1Hub */;
