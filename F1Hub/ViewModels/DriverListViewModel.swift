@@ -7,12 +7,21 @@
 
 import Foundation
 
-class DriverListViewModel: ObservableObject {
+class DriverListViewModel: BaseViewModel {
     @Published var data: [Driver] = []
     
-    func fetchDrivers() {
-        let max = Driver(driverId: "max_verstappen", name: "Max", surname: "Verstappen", nationality: "Netherlands", birthday: "30/09/1997", number: 33, shortName: "VER", url: "https://en.wikipedia.org/wiki/Max_Verstappen", teamId: "red_bull")
-        let lando = Driver(driverId: "norris", name: "Lando", surname: "Norris", nationality: "Great Britain", birthday: "13/11/1999", number: 4, shortName: "NOR", url: "https://en.wikipedia.org/wiki/Lando_Norris", teamId: "mclaren")
-        data = [max, lando]
+    private let f1APIService = F1APIService()
+    
+    @MainActor
+    func fetchCurrentDrivers() async {
+        state = .loading
+        
+        do {
+            let drivers = try await f1APIService.fetchCurrentDrivers()
+            data = drivers
+            state = .finished
+        } catch {
+            state = .error(error)
+        }
     }
 }

@@ -10,34 +10,64 @@ import SwiftUI
 struct DriverListView: View {
     @StateObject private var viewModel = DriverListViewModel()
     
+    init(viewModel: DriverListViewModel = DriverListViewModel()) {
+        self._viewModel = StateObject(wrappedValue: viewModel)
+    }
+        
     var body: some View {
         NavigationView {
-            List {
-                ForEach(viewModel.data) { driver in
-                    HStack {
-                        Text(String(format: "%02d", driver.number))
-                            .foregroundColor(Color.accentColor)
-                        Text("\(driver.name) \(driver.surname)")
+            ZStack {
+                List {
+                    ForEach(viewModel.data) { driver in
+                        HStack {
+                            Text(String(format: "%02d", driver.number))
+                                .foregroundColor(Color.accentColor)
+                            Text("\(driver.name) \(driver.surname)")
+                        }
+                        .rowStyle()
                     }
-                    .rowStyle()
+                }
+                .navigationBarStyle()
+                .listStyle()
+                .navigationTitle("Drivers")
+                .alert(isPresented: viewModel.isPresentingError) {
+                    Alert(
+                        title: Text("Error"),
+                        message: Text(viewModel.errorMessage),
+                        dismissButton: .default(Text("OK"))
+                    )
+                }
+                
+                if viewModel.state == .loading {
+                    ProgressView()
+                        .progressViewStyle(.circular)
                 }
             }
-            .onAppear() {
-                viewModel.fetchDrivers()
+            .task {
+                if !isRunningInPreview() {
+                    await viewModel.fetchCurrentDrivers()
+                }
             }
-            .navigationTitle("Drivers")
-            .navigationBarStyle()
-            .listStyle()
         }
     }
 }
 
 #Preview("Light Mode") {
-    DriverListView()
-        .preferredColorScheme(.light)
+    let viewModel = DriverListViewModel()
+    viewModel.data = Driver.mockDrivers()
+    viewModel.state = .finished
+    return DriverListView(viewModel: viewModel).preferredColorScheme(.light)
 }
 
 #Preview("Dark Mode") {
-    DriverListView()
-        .preferredColorScheme(.dark)
+    let viewModel = DriverListViewModel()
+    viewModel.data = Driver.mockDrivers()
+    viewModel.state = .finished
+    return DriverListView(viewModel: viewModel).preferredColorScheme(.dark)
+}
+
+#Preview("Error") {
+    let viewModel = DriverListViewModel()
+    viewModel.state = .error(APIError.networkError(NSError(domain: "", code: -1)))
+    return DriverListView(viewModel: viewModel)
 }

@@ -11,8 +11,10 @@ struct NavigationBarStyle: ViewModifier {
     func body(content: Content) -> some View {
         content
             .navigationBarTitleDisplayMode(.inline)
-            .toolbarBackground(Color.backgroundColor, for: .navigationBar)
             .toolbarBackground(.visible, for: .navigationBar)
+            .toolbarBackground(.visible, for: .tabBar)
+            .toolbarBackground(Color.backgroundColor, for: .navigationBar)
+            .toolbarBackground(Color.backgroundColor, for: .tabBar)
     }
 }
 
