@@ -10,7 +10,10 @@ import SwiftUI
 struct RowStyle: ViewModifier {
     func body(content: Content) -> some View {
         content
-            .padding(8)
+            .padding(16)
+            .alignmentGuide(.listRowSeparatorLeading) { _ in
+                return -16
+            }
             .foregroundColor(Color.textPrimary)
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
             .background(Color.backgroundColor)

@@ -1,5 +1,5 @@
 //
-//  F1HubApp.swift
+//  MainView.swift
 //  F1Hub
 //
 //  Created by Marcos Morales on 09/04/2025.

@@ -8,15 +8,29 @@
 
 /* Begin PBXBuildFile section */
 		E03DB76B2DA9BEA400C2A18D /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = E03DB76A2DA9BEA400C2A18D /* Alamofire */; };
+		E03DB78F2DB0133D00C2A18D /* FlagAndCountryCode in Frameworks */ = {isa = PBXBuildFile; productRef = E03DB78E2DB0133D00C2A18D /* FlagAndCountryCode */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		E09C35482DA73C7B0054C99E /* F1Hub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = F1Hub.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		E03DB77E2DAF038400C2A18D /* Exceptions for "F1Hub" folder in "F1Hub" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Resources/Info.plist,
+			);
+			target = E09C35472DA73C7B0054C99E /* F1Hub */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		E09C354A2DA73C7B0054C99E /* F1Hub */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				E03DB77E2DAF038400C2A18D /* Exceptions for "F1Hub" folder in "F1Hub" target */,
+			);
 			path = F1Hub;
 			sourceTree = "<group>";
 		};
@@ -27,6 +41,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E03DB78F2DB0133D00C2A18D /* FlagAndCountryCode in Frameworks */,
 				E03DB76B2DA9BEA400C2A18D /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -71,6 +86,7 @@
 			name = F1Hub;
 			packageProductDependencies = (
 				E03DB76A2DA9BEA400C2A18D /* Alamofire */,
+				E03DB78E2DB0133D00C2A18D /* FlagAndCountryCode */,
 			);
 			productName = F1Hub;
 			productReference = E09C35482DA73C7B0054C99E /* F1Hub.app */;
@@ -102,6 +118,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				E03DB7692DA9BEA400C2A18D /* XCRemoteSwiftPackageReference "Alamofire" */,
+				E03DB78D2DB0133D00C2A18D /* XCRemoteSwiftPackageReference "FlagAndCountryCode" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = E09C35492DA73C7B0054C99E /* Products */;
@@ -262,6 +279,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = F1Hub/Resources/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "F1 Hub";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -290,6 +308,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = F1Hub/Resources/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "F1 Hub";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -341,6 +360,14 @@
 				minimumVersion = 5.10.2;
 			};
 		};
+		E03DB78D2DB0133D00C2A18D /* XCRemoteSwiftPackageReference "FlagAndCountryCode" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/exyte/FlagAndCountryCode";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.1.3;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -348,6 +375,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = E03DB7692DA9BEA400C2A18D /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
+		};
+		E03DB78E2DB0133D00C2A18D /* FlagAndCountryCode */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E03DB78D2DB0133D00C2A18D /* XCRemoteSwiftPackageReference "FlagAndCountryCode" */;
+			productName = FlagAndCountryCode;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

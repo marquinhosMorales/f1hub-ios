@@ -22,7 +22,11 @@ struct DriverListView: View {
                         HStack {
                             Text(String(format: "%02d", driver.number))
                                 .foregroundColor(Color.accentColor)
+                                .wideTextStyle(12)
+                                .monospacedDigit()
                             Text("\(driver.name) \(driver.surname)")
+                                .boldTextStyle(16)
+                            flagImage(for: driver.nationality)
                         }
                         .rowStyle()
                     }
