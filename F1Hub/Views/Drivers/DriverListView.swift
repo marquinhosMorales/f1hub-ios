@@ -33,9 +33,8 @@ struct DriverListView: View {
                         .rowStyle()
                     }
                 }
-                .navigationBarStyle()
+                .navigationBarStyle(withTitle: "Drivers")
                 .listStyle()
-                .navigationTitle("Drivers")
                 .alert(isPresented: viewModel.isPresentingError) {
                     Alert(
                         title: Text("Error"),

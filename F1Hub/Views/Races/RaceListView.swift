@@ -26,9 +26,8 @@ struct RaceListView: View {
                         .rowStyle()
                     }
                 }
-                .navigationBarStyle()
+                .navigationBarStyle(withTitle: "Races")
                 .listStyle()
-                .navigationTitle("Races")
                 .alert(isPresented: viewModel.isPresentingError) {
                     Alert(
                         title: Text("Error"),
