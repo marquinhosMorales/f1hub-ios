@@ -11,12 +11,13 @@ struct Driver: Codable, Identifiable {
     let driverId: String
     let name: String
     let surname: String
-    let nationality: String
+    let nationality: String?
     let birthday: String
     let number: Int
     let shortName: String
     let url: String
-    let teamId: String
+    let teamId: String?
+    let country: String?
 
     // Computed property for Identifiable
     var id: String { driverId }
@@ -31,6 +32,7 @@ struct Driver: Codable, Identifiable {
         case shortName
         case url
         case teamId
+        case country
     }
 }
 
@@ -44,7 +46,8 @@ extension Driver {
         number: 33,
         shortName: "VER",
         url: "https://en.wikipedia.org/wiki/Max_Verstappen",
-        teamId: "red_bull"
+        teamId: "red_bull",
+        country: nil
     )
 
     static let mockNorris = Driver(
@@ -56,7 +59,8 @@ extension Driver {
         number: 4,
         shortName: "NOR",
         url: "https://en.wikipedia.org/wiki/Lando_Norris",
-        teamId: "mclaren"
+        teamId: "mclaren",
+        country: nil
     )
     
     static func mockDrivers() -> [Driver] {

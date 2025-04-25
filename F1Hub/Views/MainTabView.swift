@@ -14,6 +14,10 @@ struct MainTabView: View {
                 .tabItem {
                     Label("Drivers", systemImage: "steeringwheel")
                 }
+            RaceListView()
+                .tabItem {
+                    Label("Races", systemImage: "flag.pattern.checkered")
+                }
         }
     }
 }

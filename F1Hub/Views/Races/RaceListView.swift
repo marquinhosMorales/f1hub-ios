@@ -1,16 +1,16 @@
 //
-//  DriverListView.swift
+//  RaceListView.swift
 //  F1Hub
 //
-//  Created by Marcos Morales on 10/04/2025.
+//  Created by Marcos Morales on 24/04/2025.
 //
 
 import SwiftUI
 
-struct DriverListView: View {
-    @StateObject private var viewModel = DriverListViewModel()
+struct RaceListView: View {
+    @StateObject private var viewModel = RaceListViewModel()
     
-    init(viewModel: DriverListViewModel = DriverListViewModel()) {
+    init(viewModel: RaceListViewModel = RaceListViewModel()) {
         self._viewModel = StateObject(wrappedValue: viewModel)
     }
         
@@ -18,24 +18,17 @@ struct DriverListView: View {
         NavigationView {
             ZStack {
                 List {
-                    ForEach(viewModel.data) { driver in
+                    ForEach(viewModel.data) { race in
                         HStack {
-                            Text(String(format: "%02d", driver.number))
-                                .foregroundColor(Color.accentColor)
-                                .wideTextStyle(12)
-                                .monospacedDigit()
-                            Text("\(driver.name) \(driver.surname)")
+                            Text(race.raceName)
                                 .boldTextStyle(16)
-                            if let nationality = driver.nationality {
-                                flagImage(for: nationality)
-                            }
                         }
                         .rowStyle()
                     }
                 }
                 .navigationBarStyle()
                 .listStyle()
-                .navigationTitle("Drivers")
+                .navigationTitle("Races")
                 .alert(isPresented: viewModel.isPresentingError) {
                     Alert(
                         title: Text("Error"),
@@ -51,7 +44,7 @@ struct DriverListView: View {
             }
             .task {
                 if !isRunningInPreview() {
-                    await viewModel.fetchCurrentDrivers()
+                    await viewModel.fetchCurrentraces()
                 }
             }
         }
@@ -59,21 +52,21 @@ struct DriverListView: View {
 }
 
 #Preview("Light Mode") {
-    let viewModel = DriverListViewModel()
-    viewModel.data = Driver.mockDrivers()
+    let viewModel = RaceListViewModel()
+    viewModel.data = Race.mockRaces()
     viewModel.state = .finished
-    return DriverListView(viewModel: viewModel).preferredColorScheme(.light)
+    return RaceListView(viewModel: viewModel).preferredColorScheme(.light)
 }
 
 #Preview("Dark Mode") {
-    let viewModel = DriverListViewModel()
-    viewModel.data = Driver.mockDrivers()
+    let viewModel = RaceListViewModel()
+    viewModel.data = Race.mockRaces()
     viewModel.state = .finished
-    return DriverListView(viewModel: viewModel).preferredColorScheme(.dark)
+    return RaceListView(viewModel: viewModel).preferredColorScheme(.dark)
 }
 
 #Preview("Error") {
-    let viewModel = DriverListViewModel()
+    let viewModel = RaceListViewModel()
     viewModel.state = .error(APIError.networkError(NSError(domain: "", code: -1)))
-    return DriverListView(viewModel: viewModel)
+    return RaceListView(viewModel: viewModel)
 }

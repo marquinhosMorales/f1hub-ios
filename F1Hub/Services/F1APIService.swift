@@ -14,4 +14,10 @@ struct F1APIService {
         let response: CurrentDriversResponse = try await client.request(url)
         return response.drivers
     }
+    
+    func fetchCurrentRaces() async throws -> [Race] {
+        let url = "\(baseURL)/api/current"
+        let response: CurrentRacesResponse = try await client.request(url)
+        return response.races
+    }
 }
