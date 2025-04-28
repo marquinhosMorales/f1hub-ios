@@ -19,11 +19,8 @@ struct RaceListView: View {
             ZStack {
                 List {
                     ForEach(viewModel.data) { race in
-                        HStack {
-                            Text(race.raceName)
-                                .boldTextStyle(16)
-                        }
-                        .rowStyle()
+                        RaceRow(race: race)
+                            .rowStyle()
                     }
                 }
                 .navigationBarStyle(withTitle: "Races")

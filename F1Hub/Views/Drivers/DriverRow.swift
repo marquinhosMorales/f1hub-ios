@@ -11,10 +11,11 @@ struct DriverRow: View {
     let driver: Driver
     
     var body: some View {
+        let driverNumber = String(format: "%02d", driver.number)
         let teamID = driver.teamId ?? .unknown
         
         HStack {
-            Text(String(format: "%02d", driver.number))
+            Text(driverNumber)
                 .foregroundColor(Color.primary)
                 .wideTextStyle(12)
                 .monospacedDigit()
@@ -23,6 +24,7 @@ struct DriverRow: View {
                 .fill(teamID.color())
                 .frame(width: 4)
                 .frame(maxHeight: 80)
+                .padding(.horizontal, 8)
             
             VStack(alignment: .leading) {
                 HStack {
