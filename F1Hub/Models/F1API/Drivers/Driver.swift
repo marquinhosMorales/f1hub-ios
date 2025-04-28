@@ -16,7 +16,7 @@ struct Driver: Codable, Identifiable {
     let number: Int
     let shortName: String
     let url: String
-    let teamId: String?
+    let teamId: TeamID?
     let country: String?
 
     // Computed property for Identifiable
@@ -46,7 +46,7 @@ extension Driver {
         number: 33,
         shortName: "VER",
         url: "https://en.wikipedia.org/wiki/Max_Verstappen",
-        teamId: "red_bull",
+        teamId: TeamID.RedBull,
         country: nil
     )
 
@@ -59,7 +59,7 @@ extension Driver {
         number: 4,
         shortName: "NOR",
         url: "https://en.wikipedia.org/wiki/Lando_Norris",
-        teamId: "mclaren",
+        teamId: TeamID.McLaren,
         country: nil
     )
     

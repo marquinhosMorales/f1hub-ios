@@ -76,7 +76,7 @@ extension Race {
             RaceFastLap(
                 time: "1:22.167",
                 driverId: "norris",
-                treamId: "mclaren"
+                treamId: TeamID.McLaren
             ),
         winner:
             Driver(
@@ -93,7 +93,7 @@ extension Race {
             ),
         teamWinner:
             Team(
-                teamId: "mclaren",
+                teamId: TeamID.McLaren,
                 teamName: "McLaren Formula 1 Team",
                 country: "Great Britain",
                 firstAppearance: 1966,

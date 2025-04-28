@@ -5,8 +5,10 @@
 //  Created by Marcos Morales on 25/04/2025.
 //
 
+import SwiftUI
+
 struct Team: Codable, Identifiable {
-    let teamId: String
+    let teamId: TeamID
     let teamName: String
     let country: String
     let firstAppearance: Int
@@ -15,7 +17,7 @@ struct Team: Codable, Identifiable {
     let url: String
 
     // Computed property for Identifiable
-    var id: String { teamId }
+    var id: String { teamId.rawValue }
 
     enum CodingKeys: String, CodingKey {
         case teamId
@@ -25,5 +27,52 @@ struct Team: Codable, Identifiable {
         case constructorsChampionships
         case driversChampionships
         case url
+    }
+}
+
+// MARK: - TeamID Enum
+
+enum TeamID: String, Codable, CaseIterable {
+    case McLaren = "mclaren"
+    case Mercedes = "mercedes"
+    case RedBull = "red_bull"
+    case Ferrari = "ferrari"
+    case Williams = "williams"
+    case Haas = "haas"
+    case AstonMartin = "aston_martin"
+    case RacingBulls = "rb"
+    case Alpine = "alpine"
+    case Sauber = "sauber"
+    case unknown
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        let rawValue = try container.decode(String.self)
+        self = TeamID(rawValue: rawValue) ?? .unknown
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        try container.encode(rawValue)
+    }
+    
+    func name() -> String {
+        if self == .RedBull {
+            return "Red Bull Racing"
+        } else if self == .AstonMartin {
+            return "Aston Martin"
+        } else if self == .RacingBulls {
+            return "Racing Bulls"
+        } else if self == .Sauber {
+            return "Kick Sauber"
+        } else if self == .unknown {
+            return ""
+        } else {
+            return String(describing: self)
+        }
+    }
+    
+    func color() -> Color {
+        return self == .unknown ? .black : Color(String(describing: self))
     }
 }

@@ -19,18 +19,8 @@ struct DriverListView: View {
             ZStack {
                 List {
                     ForEach(viewModel.data) { driver in
-                        HStack {
-                            Text(String(format: "%02d", driver.number))
-                                .foregroundColor(Color.accentColor)
-                                .wideTextStyle(12)
-                                .monospacedDigit()
-                            Text("\(driver.name) \(driver.surname)")
-                                .boldTextStyle(16)
-                            if let nationality = driver.nationality {
-                                flagImage(for: nationality)
-                            }
-                        }
-                        .rowStyle()
+                        DriverRow(driver: driver)
+                            .rowStyle()
                     }
                 }
                 .navigationBarStyle(withTitle: "Drivers")
