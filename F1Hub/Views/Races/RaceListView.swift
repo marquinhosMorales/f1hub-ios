@@ -10,6 +10,8 @@ import SwiftUI
 struct RaceListView: View {
     @StateObject private var viewModel = RaceListViewModel()
     
+    @State private var selectedSegment = 0
+    
     init(viewModel: RaceListViewModel = RaceListViewModel()) {
         self._viewModel = StateObject(wrappedValue: viewModel)
     }
@@ -17,25 +19,35 @@ struct RaceListView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                List {
-                    ForEach(viewModel.data) { race in
-                        RaceRow(race: race)
-                            .rowStyle()
-                    }
-                }
-                .navigationBarStyle(withTitle: "Races")
-                .listStyle()
-                .alert(isPresented: viewModel.isPresentingError) {
-                    Alert(
-                        title: Text("Error"),
-                        message: Text(viewModel.errorMessage),
-                        dismissButton: .default(Text("OK"))
+                VStack {
+                    SegmentedView(
+                        segments: ["Upcoming", "Past"],
+                        selected: $selectedSegment,
+                        backgroundColor: .accent,
+                        activeColor: .white,
+                        inactiveColor: .white.opacity(0.6)
                     )
-                }
-                
-                if viewModel.state == .loading {
-                    ProgressView()
-                        .progressViewStyle(.circular)
+                                
+                    List {
+                        ForEach(selectedSegment == 0 ? viewModel.upcomingRaces : viewModel.pastRaces) { race in
+                            RaceRow(race: race)
+                                .rowStyle()
+                        }
+                    }
+                    .navigationBarStyle(withTitle: "Races")
+                    .listStyle()
+                    .alert(isPresented: viewModel.isPresentingError) {
+                        Alert(
+                            title: Text("Error"),
+                            message: Text(viewModel.errorMessage),
+                            dismissButton: .default(Text("OK"))
+                        )
+                    }
+                    
+                    if viewModel.state == .loading {
+                        ProgressView()
+                            .progressViewStyle(.circular)
+                    }
                 }
             }
             .task {
