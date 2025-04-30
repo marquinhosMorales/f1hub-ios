@@ -18,6 +18,10 @@ struct MainTabView: View {
                 .tabItem {
                     Label("Races", systemImage: "flag.pattern.checkered")
                 }
+            StandingsView()
+                .tabItem {
+                    Label("Standings", systemImage: "trophy")
+                }
         }
     }
 }

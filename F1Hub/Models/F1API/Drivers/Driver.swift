@@ -5,10 +5,8 @@
 //  Created by Marcos Morales on 10/04/2025.
 //
 
-import Foundation
-
 struct Driver: Codable, Identifiable {
-    let driverId: String
+    let driverId: String?
     let name: String
     let surname: String
     let nationality: String?
@@ -20,7 +18,7 @@ struct Driver: Codable, Identifiable {
     let country: String?
 
     // Computed property for Identifiable
-    var id: String { driverId }
+    var id: String { driverId ?? String(number) }
 
     enum CodingKeys: String, CodingKey {
         case driverId

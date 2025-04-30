@@ -121,29 +121,8 @@ extension Race {
                 driverId: "norris",
                 treamId: TeamID.McLaren
             ),
-        winner:
-            Driver(
-                driverId: "norris",
-                name: "Lando",
-                surname: "Norris",
-                nationality: nil,
-                birthday: "13/11/1999",
-                number: 4,
-                shortName: "NOR",
-                url: "https://en.wikipedia.org/wiki/Lando_Norris",
-                teamId: nil,
-                country: "Great Britain"
-            ),
-        teamWinner:
-            Team(
-                teamId: TeamID.McLaren,
-                teamName: "McLaren Formula 1 Team",
-                country: "Great Britain",
-                firstAppearance: 1966,
-                constructorsChampionships: 9,
-                driversChampionships: 12,
-                url: "https://en.wikipedia.org/wiki/McLaren"
-            )
+        winner: Driver.mockNorris,
+        teamWinner: Team.mockMcLaren
     )
     
     static let mockSpain = Race(

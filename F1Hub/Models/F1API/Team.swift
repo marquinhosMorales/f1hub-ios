@@ -11,9 +11,9 @@ struct Team: Codable, Identifiable {
     let teamId: TeamID
     let teamName: String
     let country: String
-    let firstAppearance: Int
-    let constructorsChampionships: Int
-    let driversChampionships: Int
+    let firstAppearance: Int?
+    let constructorsChampionships: Int?
+    let driversChampionships: Int?
     let url: String
 
     // Computed property for Identifiable
@@ -27,6 +27,32 @@ struct Team: Codable, Identifiable {
         case constructorsChampionships
         case driversChampionships
         case url
+    }
+}
+
+extension Team {
+    static let mockRedBull = Team(
+        teamId: TeamID.RedBull,
+        teamName: "Red Bull Racing",
+        country: "Austria",
+        firstAppearance: 2005,
+        constructorsChampionships: 6,
+        driversChampionships: 8,
+        url: "https://en.wikipedia.org/wiki/Red_Bull_Racing"
+    )
+
+    static let mockMcLaren = Team(
+        teamId: TeamID.McLaren,
+        teamName: "McLaren Formula 1 Team",
+        country: "Great Britain",
+        firstAppearance: 1966,
+        constructorsChampionships: 9,
+        driversChampionships: 12,
+        url: "https://en.wikipedia.org/wiki/McLaren"
+    )
+    
+    static func mockTeams() -> [Team] {
+        return [mockRedBull, mockMcLaren]
     }
 }
 
