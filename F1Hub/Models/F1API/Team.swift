@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct Team: Codable, Identifiable {
-    let teamId: TeamID
+    let teamId: TeamID?
     let teamName: String
     let country: String
     let firstAppearance: Int?
@@ -17,7 +17,7 @@ struct Team: Codable, Identifiable {
     let url: String
 
     // Computed property for Identifiable
-    var id: String { teamId.rawValue }
+    var id: String { teamId?.rawValue ?? teamName }
 
     enum CodingKeys: String, CodingKey {
         case teamId

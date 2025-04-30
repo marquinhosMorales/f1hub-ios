@@ -26,4 +26,10 @@ struct F1APIService {
         let response: CurrentDriversStandingsResponse = try await client.request(url)
         return response.driversStandings
     }
+    
+    func fetchCurrentTeamsStandings() async throws -> [StandingsEntry] {
+        let url = "\(baseURL)/api/current/constructors-championship"
+        let response: CurrentTeamsStandingsResponse = try await client.request(url)
+        return response.teamsStandings
+    }
 }

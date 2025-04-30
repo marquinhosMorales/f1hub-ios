@@ -54,7 +54,33 @@ extension StandingsEntry {
         driver: Driver.mockNorris
     )
     
-    static func mockStandings() -> [StandingsEntry] {
+    static let mockRedBullEntry = StandingsEntry(
+        classificationId: 1,
+        teamId: TeamID.RedBull,
+        points: 125,
+        position: 1,
+        wins: 5,
+        team: Team.mockRedBull,
+        driverId: nil,
+        driver: nil
+    )
+    
+    static let mockMcLarenEntry = StandingsEntry(
+        classificationId: 2,
+        teamId: TeamID.McLaren,
+        points: 75,
+        position: 2,
+        wins: 3,
+        team: Team.mockMcLaren,
+        driverId: nil,
+        driver: nil
+    )
+    
+    static func mockDriversStandings() -> [StandingsEntry] {
         return [mockVerstappenEntry, mockNorrisEntry]
+    }
+    
+    static func mockTeamsStandings() -> [StandingsEntry] {
+        return [mockRedBullEntry, mockMcLarenEntry]
     }
 }

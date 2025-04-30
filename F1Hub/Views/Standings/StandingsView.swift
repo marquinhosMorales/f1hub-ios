@@ -10,6 +10,8 @@ import SwiftUI
 struct StandingsView: View {
     @StateObject private var viewModel = StandingsViewModel()
     
+    @State private var selectedSegment = 0
+    
     init(viewModel: StandingsViewModel = StandingsViewModel()) {
         self._viewModel = StateObject(wrappedValue: viewModel)
     }
@@ -17,36 +19,49 @@ struct StandingsView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                List {
-                    ForEach(viewModel.data) { standingsEntry in
-                        HStack {
-                            Text("\(standingsEntry.position).")
-                            if let driver = standingsEntry.driver {
-                                Text("\(driver.name) \(driver.surname)")
+                VStack {
+                    SegmentedView(
+                        segments: ["Drivers", "Teams"],
+                        selected: $selectedSegment,
+                        backgroundColor: .accent,
+                        activeColor: .white,
+                        inactiveColor: .white.opacity(0.6)
+                    )
+                    
+                    List {
+                        ForEach(selectedSegment == 0 ? viewModel.driversStandings : viewModel.teamsStandings) { standingsEntry in
+                            HStack {
+                                Text("\(standingsEntry.position).")
+                                if let driver = standingsEntry.driver {
+                                    Text("\(driver.name) \(driver.surname)")
+                                } else {
+                                    Text(standingsEntry.team.teamName)
+                                }
+                                Spacer()
+                                Text("\(standingsEntry.points)")
                             }
-                            Spacer()
-                            Text("\(standingsEntry.points)")
                         }
                     }
-                }
-                .navigationBarStyle(withTitle: "Standings")
-                .listStyle()
-                .alert(isPresented: viewModel.isPresentingError) {
-                    Alert(
-                        title: Text("Error"),
-                        message: Text(viewModel.errorMessage),
-                        dismissButton: .default(Text("OK"))
-                    )
-                }
-                
-                if viewModel.state == .loading {
-                    ProgressView()
-                        .progressViewStyle(.circular)
+                    .navigationBarStyle(withTitle: "Standings")
+                    .listStyle()
+                    .alert(isPresented: viewModel.isPresentingError) {
+                        Alert(
+                            title: Text("Error"),
+                            message: Text(viewModel.errorMessage),
+                            dismissButton: .default(Text("OK"))
+                        )
+                    }
+                    
+                    if viewModel.state == .loading {
+                        ProgressView()
+                            .progressViewStyle(.circular)
+                    }
                 }
             }
             .task {
                 if !isRunningInPreview() {
                     await viewModel.fetchCurrentDriversStandings()
+                    await viewModel.fetchCurrentTeamsStandings()
                 }
             }
         }
@@ -55,14 +70,16 @@ struct StandingsView: View {
 
 #Preview("Light Mode") {
     let viewModel = StandingsViewModel()
-    viewModel.data = StandingsEntry.mockStandings()
+    viewModel.driversStandings = StandingsEntry.mockDriversStandings()
+    viewModel.teamsStandings =  StandingsEntry.mockTeamsStandings()
     viewModel.state = .finished
     return StandingsView(viewModel: viewModel).preferredColorScheme(.light)
 }
 
 #Preview("Dark Mode") {
     let viewModel = StandingsViewModel()
-    viewModel.data = StandingsEntry.mockStandings()
+    viewModel.driversStandings = StandingsEntry.mockDriversStandings()
+    viewModel.teamsStandings =  StandingsEntry.mockTeamsStandings()
     viewModel.state = .finished
     return StandingsView(viewModel: viewModel).preferredColorScheme(.dark)
 }
