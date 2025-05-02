@@ -8,21 +8,24 @@
 import SwiftUI
 
 struct RowStyle: ViewModifier {
+    let backgroundColor: Color
+    let textColor: Color
+    
     func body(content: Content) -> some View {
         content
             .padding(16)
             .alignmentGuide(.listRowSeparatorLeading) { _ in
                 return -16
             }
-            .foregroundColor(Color.textPrimary)
+            .foregroundColor(textColor)
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
-            .background(Color.backgroundColor)
+            .background(backgroundColor)
             .listRowInsets(EdgeInsets())
     }
 }
 
 extension View {
-    func rowStyle(backgroundColor: Color = .backgroundColor, textColor: Color = .textPrimary) -> some View {
-        modifier(RowStyle())
+    func rowStyle(backgroundColor: Color = .background, textColor: Color = .textPrimary) -> some View {
+        modifier(RowStyle(backgroundColor: backgroundColor, textColor: textColor))
     }
 }

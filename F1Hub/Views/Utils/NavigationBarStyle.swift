@@ -16,7 +16,7 @@ struct NavigationBarStyle: ViewModifier {
             .toolbarBackground(.visible, for: .navigationBar)
             .toolbarBackground(.visible, for: .tabBar)
             .toolbarBackground(Color.accent, for: .navigationBar)
-            .toolbarBackground(Color.backgroundColor, for: .tabBar)
+            .toolbarBackground(Color.background, for: .tabBar)
             .toolbar {
                 ToolbarItem(placement: .principal) {
                     Text(title)

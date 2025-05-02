@@ -22,7 +22,7 @@ struct SegmentedView: View {
         segments: [String],
         selected: Binding<Int>,
         initialSelection: String? = nil,
-        backgroundColor: Color = .backgroundColor,
+        backgroundColor: Color = .background,
         activeColor: Color = .accent,
         inactiveColor: Color = .lightGray,
         font: Font = .custom("Formula1-Display-Regular", size: 14),

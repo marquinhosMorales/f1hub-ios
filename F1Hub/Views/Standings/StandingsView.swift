@@ -19,7 +19,7 @@ struct StandingsView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                VStack {
+                VStack(spacing: 0) {
                     SegmentedView(
                         segments: ["Drivers", "Teams"],
                         selected: $selectedSegment,
@@ -30,16 +30,8 @@ struct StandingsView: View {
                     
                     List {
                         ForEach(selectedSegment == 0 ? viewModel.driversStandings : viewModel.teamsStandings) { standingsEntry in
-                            HStack {
-                                Text("\(standingsEntry.position).")
-                                if let driver = standingsEntry.driver {
-                                    Text("\(driver.name) \(driver.surname)")
-                                } else {
-                                    Text(standingsEntry.team.teamName)
-                                }
-                                Spacer()
-                                Text("\(standingsEntry.points)")
-                            }
+                            StandingsRow(standingsEntry: standingsEntry)
+                                .rowStyle(backgroundColor: standingsEntry.position == 1 ? .standingsLeaderBackground : .background)
                         }
                     }
                     .navigationBarStyle(withTitle: "Standings")

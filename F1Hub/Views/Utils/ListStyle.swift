@@ -11,7 +11,7 @@ struct ListStyle: ViewModifier {
     func body(content: Content) -> some View {
         content
             .listStyle(PlainListStyle())
-            .background(Color.backgroundColor)
+            .background(Color.background)
     }
 }
 
