@@ -27,6 +27,7 @@ class RaceListViewModel: BaseViewModel {
             }
             return raceDate >= Date()
         }
+        .sorted { $0.round < $1.round }
     }
     
     var pastRaces: [Race] {
@@ -37,6 +38,7 @@ class RaceListViewModel: BaseViewModel {
             }
             return raceDate < Date()
         }
+        .sorted { $0.round > $1.round }
     }
     
     @MainActor
