@@ -119,7 +119,7 @@ extension Race {
             RaceFastLap(
                 time: "1:22.167",
                 driverId: "norris",
-                treamId: TeamID.McLaren
+                teamId: TeamID.McLaren
             ),
         winner: Driver.mockNorris,
         teamWinner: Team.mockMcLaren
@@ -161,7 +161,7 @@ extension Race {
             RaceFastLap(
                 time: nil,
                 driverId: nil,
-                treamId: nil
+                teamId: nil
             ),
         winner: nil,
         teamWinner: nil
