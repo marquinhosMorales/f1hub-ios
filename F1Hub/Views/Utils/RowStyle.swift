@@ -14,13 +14,16 @@ struct RowStyle: ViewModifier {
     func body(content: Content) -> some View {
         content
             .padding(16)
-            .alignmentGuide(.listRowSeparatorLeading) { _ in
-                return -16
-            }
             .foregroundColor(textColor)
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
-            .background(backgroundColor)
+            .listRowBackground(backgroundColor)
             .listRowInsets(EdgeInsets())
+            .alignmentGuide(.listRowSeparatorLeading) { dimensions in
+                dimensions[.leading]
+            }
+            .alignmentGuide(.listRowSeparatorTrailing) { dimensions in
+                dimensions[.trailing]
+            }
     }
 }
 
