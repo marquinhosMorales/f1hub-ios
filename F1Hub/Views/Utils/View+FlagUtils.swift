@@ -5,8 +5,8 @@
 //  Created by Marcos Morales on 16/04/2025.
 //
 
-import SwiftUI
 import FlagAndCountryCode
+import SwiftUI
 
 extension View {
     func flagImage(for nationality: String, style: FlagType = .roundedRect) -> some View {
@@ -22,12 +22,12 @@ extension View {
             "french": "France",
             "german": "Germany",
             "spanish": "Spain",
-            "dutch": "Netherlands"
+            "dutch": "Netherlands",
         ]
-        
+
         let country = countryAliases[nationality.lowercased()] ?? nationality
         let countryInfo = CountryFlagInfo.all.first { $0.name.lowercased() == country.lowercased() }
-        
+
         if let countryInfo = countryInfo {
             return AnyView(countryInfo.getCountryImage(with: style))
         } else {

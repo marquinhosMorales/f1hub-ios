@@ -9,13 +9,13 @@ import SwiftUI
 
 struct StandingsView: View {
     @StateObject private var viewModel = StandingsViewModel()
-    
+
     @State private var selectedSegment = 0
-    
+
     init(viewModel: StandingsViewModel = StandingsViewModel()) {
-        self._viewModel = StateObject(wrappedValue: viewModel)
+        _viewModel = StateObject(wrappedValue: viewModel)
     }
-        
+
     var body: some View {
         NavigationView {
             ZStack {
@@ -27,11 +27,12 @@ struct StandingsView: View {
                         activeColor: .white,
                         inactiveColor: .white.opacity(0.6)
                     )
-                    
+
                     List {
                         ForEach(selectedSegment == 0 ? viewModel.driversStandings : viewModel.teamsStandings) { standingsEntry in
                             StandingsRow(standingsEntry: standingsEntry)
-                                .rowStyle(backgroundColor: standingsEntry.position == 1 ? .standingsLeaderBackground : .background)
+                                .rowStyle()
+                                .background(standingsEntry.position == 1 ? .standingsLeaderBackground : .background)
                         }
                     }
                     .navigationBarStyle(withTitle: "Standings")
@@ -43,7 +44,7 @@ struct StandingsView: View {
                             dismissButton: .default(Text("OK"))
                         )
                     }
-                    
+
                     if viewModel.state == .loading {
                         ProgressView()
                             .progressViewStyle(.circular)
@@ -63,7 +64,7 @@ struct StandingsView: View {
 #Preview("Light Mode") {
     let viewModel = StandingsViewModel()
     viewModel.driversStandings = StandingsEntry.mockDriversStandings()
-    viewModel.teamsStandings =  StandingsEntry.mockTeamsStandings()
+    viewModel.teamsStandings = StandingsEntry.mockTeamsStandings()
     viewModel.state = .finished
     return StandingsView(viewModel: viewModel).preferredColorScheme(.light)
 }
@@ -71,7 +72,7 @@ struct StandingsView: View {
 #Preview("Dark Mode") {
     let viewModel = StandingsViewModel()
     viewModel.driversStandings = StandingsEntry.mockDriversStandings()
-    viewModel.teamsStandings =  StandingsEntry.mockTeamsStandings()
+    viewModel.teamsStandings = StandingsEntry.mockTeamsStandings()
     viewModel.state = .finished
     return StandingsView(viewModel: viewModel).preferredColorScheme(.dark)
 }

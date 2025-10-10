@@ -10,13 +10,13 @@ import Foundation
 class StandingsViewModel: BaseViewModel {
     @Published var driversStandings: [StandingsEntry] = []
     @Published var teamsStandings: [StandingsEntry] = []
-    
+
     private let f1APIService = F1APIService()
-    
+
     @MainActor
     func fetchCurrentDriversStandings() async {
         state = .loading
-        
+
         do {
             let standings = try await f1APIService.fetchCurrentDriversStandings()
             driversStandings = standings
@@ -25,11 +25,11 @@ class StandingsViewModel: BaseViewModel {
             state = .error(error)
         }
     }
-    
+
     @MainActor
     func fetchCurrentTeamsStandings() async {
         state = .loading
-        
+
         do {
             let standings = try await f1APIService.fetchCurrentTeamsStandings()
             teamsStandings = standings

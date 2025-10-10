@@ -5,6 +5,8 @@
 //  Created by Marcos Morales on 10/04/2025.
 //
 
+import Foundation
+
 struct Driver: Codable, Identifiable {
     let driverId: String?
     let name: String
@@ -32,6 +34,23 @@ struct Driver: Codable, Identifiable {
         case teamId
         case country
     }
+
+    var driverName: String {
+        return "\(name) \(surname)"
+    }
+
+    var age: Int? {
+        let formatter = DateFormatter()
+        formatter.dateFormat = birthday.contains("/") ? "dd/MM/yyyy" : "yyyy-MM-dd"
+
+        guard let birthDate = formatter.date(from: birthday) else {
+            return nil
+        }
+
+        let calendar = Calendar.current
+        let ageComponents = calendar.dateComponents([.year], from: birthDate, to: Date())
+        return ageComponents.year
+    }
 }
 
 extension Driver {
@@ -48,6 +67,14 @@ extension Driver {
         country: nil
     )
 
+    static let mockVerstappenWikipedia = WikipediaSummary(
+        title: "Max Verstappen",
+        description: "Dutch and Belgian racing driver (born 1997)",
+        extract: "Max Emilian Verstappen is a Dutch and Belgian racing driver who competes under the Dutch flag in Formula One for Red Bull Racing. Verstappen has won four Formula One World Drivers' Championship titles, which he won consecutively from 2021 to 2024 with Red Bull, and has won 67 Grands Prix across 11 seasons.",
+        thumbnail: nil,
+        originalimage: nil
+    )
+
     static let mockNorris = Driver(
         driverId: "norris",
         name: "Lando",
@@ -60,7 +87,7 @@ extension Driver {
         teamId: TeamID.McLaren,
         country: nil
     )
-    
+
     static func mockDrivers() -> [Driver] {
         return [mockVerstappen, mockNorris]
     }
