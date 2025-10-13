@@ -1,41 +1,41 @@
 //
-//  DriverDetailViewModel.swift
+//  TeamDetailViewModel.swift
 //  F1Hub
 //
-//  Created by Marcos Morales on 01/10/2025.
+//  Created by Marcos Morales on 13/10/2025.
 //
 
-import Foundation
+import SwiftUI
 
-class DriverDetailViewModel: BaseViewModel {
-    @Published var driver: Driver?
+class TeamDetailViewModel: BaseViewModel {
+    @Published var team: Team?
     @Published var summary: WikipediaSummary?
 
     private let f1APIService = F1APIService()
     private let wikipediaService = WikipediaAPIService()
 
-    private let driverId: String
+    private let teamId: String
     let wikiUrl: String
 
-    init(driverId: String, wikiUrl: String) {
-        self.driverId = driverId
+    init(teamId: String, wikiUrl: String) {
+        self.teamId = teamId
         self.wikiUrl = wikiUrl
         super.init()
     }
 
     @MainActor
-    func fetchDriverDetails() async {
+    func fetchTeamDetails() async {
         state = .loading
         do {
             // Fetch both in parallel
-            async let driverDetailTask: Driver = f1APIService.fetchDriverDetail(driverId: driverId)
+            async let teamDetailTask: Team = f1APIService.fetchTeamDetail(teamId: teamId)
             async let wikiTask: WikipediaSummary = wikipediaService.fetchSummary(from: wikiUrl)
 
             // Wait for both to finish
-            let (driverResult, wikiResult) = try await (driverDetailTask, wikiTask)
+            let (teamResult, wikiResult) = try await (teamDetailTask, wikiTask)
 
             // Update published vars at the same time
-            driver = driverResult
+            team = teamResult
             summary = wikiResult
 
             state = .finished

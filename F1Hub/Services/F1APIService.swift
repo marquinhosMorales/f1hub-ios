@@ -11,11 +11,14 @@ import Foundation
 
 enum F1APIError: Error, LocalizedError {
     case driverNotFound
+    case teamNotFound
 
     var errorDescription: String? {
         switch self {
         case .driverNotFound:
             return "Driver not found."
+        case .teamNotFound:
+            return "Team not found."
         }
     }
 }
@@ -55,5 +58,14 @@ struct F1APIService {
         let url = "\(baseURL)/api/current/constructors-championship"
         let response: CurrentTeamsStandingsResponse = try await client.request(url)
         return response.teamsStandings
+    }
+
+    func fetchTeamDetail(teamId: String) async throws -> Team {
+        let url = "\(baseURL)/api/teams/\(teamId)"
+        let response: TeamDetailResponse = try await client.request(url)
+        guard let team = response.teams.first else {
+            throw F1APIError.teamNotFound
+        }
+        return team
     }
 }

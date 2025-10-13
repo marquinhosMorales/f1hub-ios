@@ -1,29 +1,26 @@
 //
-//  DriverDetailBody.swift
+//  TeamDetailBody.swift
 //  F1Hub
 //
-//  Created by Marcos Morales on 09/10/2025.
+//  Created by Marcos Morales on 13/10/2025.
 //
 
 import SwiftUI
 
-struct DriverDetailBody: View {
-    let driver: Driver?
+struct TeamDetailBody: View {
+    let team: Team?
     let biography: String?
 
     var body: some View {
-        if let driver {
+        if let team {
             Section {
                 VStack(alignment: .leading, spacing: 16) {
-                    InfoRow(title: "Nationality", value: "\(driver.nationality ?? driver.country ?? "")", isNationality: true)
-                    InfoRow(title: "Date of Birth", value: driver.birthday.formattedDate())
-                    if let age = driver.age {
-                        InfoRow(title: "Age", value: "\(age)")
+                    InfoRow(title: "Team Nationality", value: "\(team.teamNationality ?? team.country ?? "")", isNationality: true)
+                    if let firstAppearance = team.firstAppearance {
+                        InfoRow(title: "First Appeareance", value: "\(firstAppearance)")
                     }
-                    if let teamId = driver.teamId {
-                        InfoRow(title: "Team", value: teamId.name())
-                    }
-                    InfoRow(title: "Short Name", value: driver.shortName)
+                    InfoRow(title: "Constructors Championships", value: "\(team.constructorsChampionships ?? 0)")
+                    InfoRow(title: "Drivers Championships", value: "\(team.driversChampionships ?? 0)")
                 }
                 .padding()
                 .background(Color(.systemBackground))
@@ -53,13 +50,13 @@ struct DriverDetailBody: View {
 }
 
 #Preview("Light Mode") {
-    DriverDetailBody(driver: Driver.mockVerstappen,
-                     biography: Driver.mockVerstappenWikipedia.extract)
+    TeamDetailBody(team: Team.mockRedBull,
+                   biography: Team.mockRedBullWikipedia.extract)
         .preferredColorScheme(.light)
 }
 
 #Preview("Dark Mode") {
-    DriverDetailBody(driver: Driver.mockVerstappen,
-                     biography: Driver.mockVerstappenWikipedia.extract)
+    TeamDetailBody(team: Team.mockRedBull,
+                   biography: Team.mockRedBullWikipedia.extract)
         .preferredColorScheme(.dark)
 }

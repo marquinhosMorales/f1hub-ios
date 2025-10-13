@@ -30,9 +30,28 @@ struct StandingsView: View {
 
                     List {
                         ForEach(selectedSegment == 0 ? viewModel.driversStandings : viewModel.teamsStandings) { standingsEntry in
-                            StandingsRow(standingsEntry: standingsEntry)
-                                .rowStyle()
-                                .background(standingsEntry.position == 1 ? .standingsLeaderBackground : .background)
+                            Group {
+                                if selectedSegment == 0,
+                                   let driverId = standingsEntry.driverId,
+                                   let driverUrl = standingsEntry.driver?.url {
+                                    NavigationLink(
+                                        destination: DriverDetailView(driverId: driverId, url: driverUrl)
+                                    ) {
+                                        StandingsRow(standingsEntry: standingsEntry)
+                                    }
+                                    .rowStyle()
+                                    .background(standingsEntry.position == 1 ? .standingsLeaderBackground : .background)
+                                } else {
+                                    NavigationLink(
+                                        destination: TeamDetailView(teamId: standingsEntry.teamId.rawValue,
+                                                                    url: standingsEntry.team.url)
+                                    ) {
+                                        StandingsRow(standingsEntry: standingsEntry)
+                                    }
+                                    .rowStyle()
+                                    .background(standingsEntry.position == 1 ? .standingsLeaderBackground : .background)
+                                }
+                            }
                         }
                     }
                     .navigationBarStyle(withTitle: "Standings")
