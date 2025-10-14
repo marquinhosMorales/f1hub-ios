@@ -9,23 +9,23 @@ import SwiftUI
 
 struct DriverRow: View {
     let driver: Driver
-    
+
     var body: some View {
         let driverNumber = String(format: "%02d", driver.number)
         let teamID = driver.teamId ?? .unknown
-        
+
         HStack {
             Text(driverNumber)
                 .foregroundColor(Color.primary)
                 .wideTextStyle(12)
                 .monospacedDigit()
-            
+
             Rectangle()
                 .fill(teamID.color())
                 .frame(width: 4)
                 .frame(maxHeight: 80)
                 .padding(.horizontal, 8)
-            
+
             VStack(alignment: .leading) {
                 HStack {
                     Text("\(driver.name) \(driver.surname)")
@@ -38,7 +38,6 @@ struct DriverRow: View {
                     .foregroundColor(Color.secondary)
                     .regularTextStyle(16)
             }
-
         }
     }
 }

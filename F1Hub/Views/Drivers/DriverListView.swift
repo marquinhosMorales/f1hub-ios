@@ -9,18 +9,22 @@ import SwiftUI
 
 struct DriverListView: View {
     @StateObject private var viewModel = DriverListViewModel()
-    
+
     init(viewModel: DriverListViewModel = DriverListViewModel()) {
-        self._viewModel = StateObject(wrappedValue: viewModel)
+        _viewModel = StateObject(wrappedValue: viewModel)
     }
-        
+
     var body: some View {
         NavigationView {
             ZStack {
                 List {
                     ForEach(viewModel.data) { driver in
-                        DriverRow(driver: driver)
-                            .rowStyle()
+                        NavigationLink(
+                            destination: DriverDetailView(driverId: driver.id, url: driver.url)
+                        ) {
+                            DriverRow(driver: driver)
+                        }
+                        .rowStyle()
                     }
                 }
                 .navigationBarStyle(withTitle: "Drivers")
@@ -32,7 +36,7 @@ struct DriverListView: View {
                         dismissButton: .default(Text("OK"))
                     )
                 }
-                
+
                 if viewModel.state == .loading {
                     ProgressView()
                         .progressViewStyle(.circular)

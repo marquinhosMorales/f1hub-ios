@@ -10,7 +10,8 @@ import SwiftUI
 struct Team: Codable, Identifiable {
     let teamId: TeamID?
     let teamName: String
-    let country: String
+    let country: String?
+    let teamNationality: String?
     let firstAppearance: Int?
     let constructorsChampionships: Int?
     let driversChampionships: Int?
@@ -23,7 +24,8 @@ struct Team: Codable, Identifiable {
         case teamId
         case teamName
         case country
-        case firstAppearance
+        case teamNationality
+        case firstAppearance = "firstAppeareance"
         case constructorsChampionships
         case driversChampionships
         case url
@@ -35,22 +37,32 @@ extension Team {
         teamId: TeamID.RedBull,
         teamName: "Red Bull Racing",
         country: "Austria",
+        teamNationality: "Austria",
         firstAppearance: 2005,
         constructorsChampionships: 6,
         driversChampionships: 8,
         url: "https://en.wikipedia.org/wiki/Red_Bull_Racing"
     )
 
+    static let mockRedBullWikipedia = WikipediaSummary(
+        title: "Red Bull Racing",
+        description: "Formula One racing team",
+        extract: "Red Bull Racing, currently competing as Oracle Red Bull Racing and also known simply as Red Bull or RBR, is a Formula One racing team, competing under an Austrian racing licence and based in the United Kingdom. It is one of two Formula One teams owned by conglomerate Red Bull GmbH, the other being Racing Bulls. The Red Bull Racing team was managed by Christian Horner from its formation in 2005 until 2025, when he departed the team and was replaced by Laurent Mekies.",
+        thumbnail: nil,
+        originalimage: nil
+    )
+
     static let mockMcLaren = Team(
         teamId: TeamID.McLaren,
         teamName: "McLaren Formula 1 Team",
         country: "Great Britain",
+        teamNationality: "Great Britain",
         firstAppearance: 1966,
         constructorsChampionships: 9,
         driversChampionships: 12,
         url: "https://en.wikipedia.org/wiki/McLaren"
     )
-    
+
     static func mockTeams() -> [Team] {
         return [mockRedBull, mockMcLaren]
     }
@@ -81,7 +93,7 @@ enum TeamID: String, Codable, CaseIterable {
         var container = encoder.singleValueContainer()
         try container.encode(rawValue)
     }
-    
+
     func name() -> String {
         if self == .RedBull {
             return "Red Bull Racing"
@@ -97,7 +109,7 @@ enum TeamID: String, Codable, CaseIterable {
             return String(describing: self)
         }
     }
-    
+
     func color() -> Color {
         return self == .unknown ? .black : Color(String(describing: self))
     }

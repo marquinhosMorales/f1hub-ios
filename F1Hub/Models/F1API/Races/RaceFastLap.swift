@@ -8,11 +8,11 @@
 struct RaceFastLap: Codable {
     let time: String?
     let driverId: String?
-    let treamId: TeamID?
+    let teamId: TeamID?
     
     enum CodingKeys: String, CodingKey {
         case time = "fast_lap"
         case driverId = "fast_lap_driver_id"
-        case treamId = "fast_lap_team_id"
+        case teamId = "fast_lap_team_id"
     }
 }

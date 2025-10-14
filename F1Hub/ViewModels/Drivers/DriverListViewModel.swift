@@ -9,13 +9,13 @@ import Foundation
 
 class DriverListViewModel: BaseViewModel {
     @Published var data: [Driver] = []
-    
+
     private let f1APIService = F1APIService()
-    
+
     @MainActor
     func fetchCurrentDrivers() async {
         state = .loading
-        
+
         do {
             let drivers = try await f1APIService.fetchCurrentDrivers()
             data = drivers

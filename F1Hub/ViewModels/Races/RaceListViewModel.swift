@@ -9,16 +9,16 @@ import Foundation
 
 class RaceListViewModel: BaseViewModel {
     @Published var data: [Race] = []
-    
+
     private let f1APIService = F1APIService()
-    
+
     private var dateFormatter: DateFormatter {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
         formatter.timeZone = TimeZone(identifier: "UTC")
         return formatter
     }
-    
+
     var upcomingRaces: [Race] {
         data.filter { race in
             guard let raceDateString = race.schedule.race.date,
@@ -27,8 +27,9 @@ class RaceListViewModel: BaseViewModel {
             }
             return raceDate >= Date()
         }
+        .sorted { $0.round < $1.round }
     }
-    
+
     var pastRaces: [Race] {
         data.filter { race in
             guard let raceDateString = race.schedule.race.date,
@@ -37,12 +38,13 @@ class RaceListViewModel: BaseViewModel {
             }
             return raceDate < Date()
         }
+        .sorted { $0.round > $1.round }
     }
-    
+
     @MainActor
     func fetchCurrentraces() async {
         state = .loading
-        
+
         do {
             let races = try await f1APIService.fetchCurrentRaces()
             data = races
