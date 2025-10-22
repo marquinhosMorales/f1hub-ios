@@ -37,6 +37,7 @@ Use Xcode to build the project and run it on a simulator or a physical iOS devic
 | Standings | <img src="https://github.com/user-attachments/assets/7d31d0e4-e597-4efb-b3eb-0ab80e51b673" alt="Driver Standings" width="200"/> <img src="https://github.com/user-attachments/assets/a10aa3d4-4663-4c97-8313-2237cc8c9e12" alt="Team Standings" width="200"/> |
 | Driver Detail | <img src="https://github.com/user-attachments/assets/087e417a-2b46-47fa-aaa3-dccbad46a006" alt="Driver Detail" width="200"/> |
 | Team Detail | <img src="https://github.com/user-attachments/assets/403b1bd6-bd60-42c0-bb04-e3346484462f" alt="Team Detail" width="200"/> |
+| Widgets | <img src="https://github.com/user-attachments/assets/80da3173-849f-4741-aab5-80cba5c73a43" alt="Default Widgets" width="200"/> <img src="https://github.com/user-attachments/assets/bb39c7c5-c21e-4b70-9deb-08cec9bb77a4" alt="Dark Widgets" width="200"/> <br /> <img src="https://github.com/user-attachments/assets/9ca4f409-9d0f-4837-a666-06918d594a96" alt="Clear Widgets" width="200"/> <img src="https://github.com/user-attachments/assets/51f31b13-7c68-4fb5-98f1-e5a580d19ac4" alt="Tinted Widgets" width="200"/> |
 
 ## Contact
 For questions, suggestions, or collaboration inquiries, reach out to:
