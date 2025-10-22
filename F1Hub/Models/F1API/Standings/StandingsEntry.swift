@@ -12,7 +12,7 @@ struct StandingsEntry: Codable, Identifiable {
     let position: Int
     let wins: Int?
     let team: Team
-    
+
     let driverId: String?
     let driver: Driver?
 
@@ -28,6 +28,10 @@ struct StandingsEntry: Codable, Identifiable {
         case team
         case driverId
         case driver
+    }
+
+    var isLeader: Bool {
+        return position == 1
     }
 }
 
@@ -53,7 +57,18 @@ extension StandingsEntry {
         driverId: Driver.mockNorris.driverId,
         driver: Driver.mockNorris
     )
-    
+
+    static let mockLeclercEntry = StandingsEntry(
+        classificationId: 3,
+        teamId: TeamID.Ferrari,
+        points: 25,
+        position: 3,
+        wins: 1,
+        team: Team.mockFerrari,
+        driverId: Driver.mockLeclerc.driverId,
+        driver: Driver.mockLeclerc
+    )
+
     static let mockRedBullEntry = StandingsEntry(
         classificationId: 1,
         teamId: TeamID.RedBull,
@@ -64,7 +79,7 @@ extension StandingsEntry {
         driverId: nil,
         driver: nil
     )
-    
+
     static let mockMcLarenEntry = StandingsEntry(
         classificationId: 2,
         teamId: TeamID.McLaren,
@@ -75,12 +90,23 @@ extension StandingsEntry {
         driverId: nil,
         driver: nil
     )
-    
+
+    static let mockFerrariEntry = StandingsEntry(
+        classificationId: 3,
+        teamId: TeamID.Ferrari,
+        points: 25,
+        position: 3,
+        wins: 1,
+        team: Team.mockFerrari,
+        driverId: nil,
+        driver: nil
+    )
+
     static func mockDriversStandings() -> [StandingsEntry] {
-        return [mockVerstappenEntry, mockNorrisEntry]
+        return [mockVerstappenEntry, mockNorrisEntry, mockLeclercEntry]
     }
-    
+
     static func mockTeamsStandings() -> [StandingsEntry] {
-        return [mockRedBullEntry, mockMcLarenEntry]
+        return [mockRedBullEntry, mockMcLarenEntry, mockFerrariEntry]
     }
 }

@@ -63,8 +63,19 @@ extension Team {
         url: "https://en.wikipedia.org/wiki/McLaren"
     )
 
+    static let mockFerrari = Team(
+        teamId: TeamID.Ferrari,
+        teamName: "Scuderia Ferrari",
+        country: "Italy",
+        teamNationality: "Italy",
+        firstAppearance: 1950,
+        constructorsChampionships: 16,
+        driversChampionships: 15,
+        url: "https://en.wikipedia.org/wiki/Scuderia_Ferrari"
+    )
+
     static func mockTeams() -> [Team] {
-        return [mockRedBull, mockMcLaren]
+        return [mockRedBull, mockMcLaren, mockFerrari]
     }
 }
 

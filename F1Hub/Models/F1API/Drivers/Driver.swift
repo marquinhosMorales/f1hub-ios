@@ -88,7 +88,20 @@ extension Driver {
         country: nil
     )
 
+    static let mockLeclerc = Driver(
+        driverId: "leclerc",
+        name: "Charles",
+        surname: "Leclerc",
+        nationality: "Monaco",
+        birthday: "16/10/1997",
+        number: 16,
+        shortName: "LEC",
+        url: "https://en.wikipedia.org/wiki/Charles_Leclerc",
+        teamId: TeamID.Ferrari,
+        country: nil
+    )
+
     static func mockDrivers() -> [Driver] {
-        return [mockVerstappen, mockNorris]
+        return [mockVerstappen, mockNorris, mockLeclerc]
     }
 }
