@@ -23,7 +23,18 @@ enum F1APIError: Error, LocalizedError {
     }
 }
 
-struct F1APIService {
+// MARK: - F1API Protocols for Dependency Injection
+
+protocol F1APIServiceProtocol {
+    func fetchCurrentDrivers() async throws -> [Driver]
+    func fetchDriverDetail(driverId: String) async throws -> Driver
+    func fetchCurrentRaces() async throws -> [Race]
+    func fetchCurrentDriversStandings() async throws -> [StandingsEntry]
+    func fetchCurrentTeamsStandings() async throws -> [StandingsEntry]
+    func fetchTeamDetail(teamId: String) async throws -> Team
+}
+
+struct F1APIService: F1APIServiceProtocol {
     private let client = APIClient.shared
     private let baseURL = "https://f1api.dev"
 

@@ -5,14 +5,20 @@
 //  Created by Marcos Morales on 25/04/2025.
 //
 
-struct RaceFastLap: Codable {
+struct RaceFastLap: Codable, Equatable {
     let time: String?
     let driverId: String?
     let teamId: TeamID?
-    
+
     enum CodingKeys: String, CodingKey {
         case time = "fast_lap"
         case driverId = "fast_lap_driver_id"
         case teamId = "fast_lap_team_id"
+    }
+
+    static func == (lhs: RaceFastLap, rhs: RaceFastLap) -> Bool {
+        lhs.time == rhs.time &&
+            lhs.driverId == rhs.driverId &&
+            lhs.teamId == rhs.teamId
     }
 }

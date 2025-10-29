@@ -11,15 +11,17 @@ class DriverDetailViewModel: BaseViewModel {
     @Published var driver: Driver?
     @Published var summary: WikipediaSummary?
 
-    private let f1APIService = F1APIService()
-    private let wikipediaService = WikipediaAPIService()
+    private let f1APIService: F1APIServiceProtocol
+    private let wikipediaService: WikipediaAPIServiceProtocol
 
     private let driverId: String
     let wikiUrl: String
 
-    init(driverId: String, wikiUrl: String) {
+    init(driverId: String, wikiUrl: String, f1APIService: F1APIServiceProtocol = F1APIService(), wikipediaService: WikipediaAPIServiceProtocol = WikipediaAPIService()) {
         self.driverId = driverId
         self.wikiUrl = wikiUrl
+        self.f1APIService = f1APIService
+        self.wikipediaService = wikipediaService
         super.init()
     }
 

@@ -5,7 +5,7 @@
 //  Created by Marcos Morales on 25/04/2025.
 //
 
-struct Circuit: Codable, Identifiable {
+struct Circuit: Codable, Identifiable, Equatable {
     let circuitId: String
     let circuitName: String
     let country: String
@@ -35,5 +35,20 @@ struct Circuit: Codable, Identifiable {
         case fastestLapTeamId
         case fastestLapYear
         case url
+    }
+
+    static func == (lhs: Circuit, rhs: Circuit) -> Bool {
+        lhs.circuitId == rhs.circuitId &&
+            lhs.circuitName == rhs.circuitName &&
+            lhs.country == rhs.country &&
+            lhs.city == rhs.city &&
+            lhs.circuitLength == rhs.circuitLength &&
+            lhs.lapRecord == rhs.lapRecord &&
+            lhs.firstParticipationYear == rhs.firstParticipationYear &&
+            lhs.corners == rhs.corners &&
+            lhs.fastestLapDriverId == rhs.fastestLapDriverId &&
+            lhs.fastestLapTeamId == rhs.fastestLapTeamId &&
+            lhs.fastestLapYear == rhs.fastestLapYear &&
+            lhs.url == rhs.url
     }
 }

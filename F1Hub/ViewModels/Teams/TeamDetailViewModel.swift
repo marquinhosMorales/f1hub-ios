@@ -11,15 +11,17 @@ class TeamDetailViewModel: BaseViewModel {
     @Published var team: Team?
     @Published var summary: WikipediaSummary?
 
-    private let f1APIService = F1APIService()
-    private let wikipediaService = WikipediaAPIService()
+    private let f1APIService: F1APIServiceProtocol
+    private let wikipediaService: WikipediaAPIServiceProtocol
 
     private let teamId: String
     let wikiUrl: String
 
-    init(teamId: String, wikiUrl: String) {
+    init(teamId: String, wikiUrl: String, f1APIService: F1APIServiceProtocol = F1APIService(), wikipediaService: WikipediaAPIServiceProtocol = WikipediaAPIService()) {
         self.teamId = teamId
         self.wikiUrl = wikiUrl
+        self.f1APIService = f1APIService
+        self.wikipediaService = wikipediaService
         super.init()
     }
 

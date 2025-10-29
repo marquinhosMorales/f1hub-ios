@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Race: Codable, Identifiable {
+struct Race: Codable, Identifiable, Equatable {
     let raceId: String
     let championshipId: String
     let raceName: String
@@ -17,7 +17,7 @@ struct Race: Codable, Identifiable {
 
     // Computed property for Identifiable
     var id: String { raceId }
-    
+
     let schedule: RaceSchedule
     let circuit: Circuit
     let fastLap: RaceFastLap?
@@ -37,47 +37,61 @@ struct Race: Codable, Identifiable {
         case winner
         case teamWinner
     }
-    
+
+    static func == (lhs: Race, rhs: Race) -> Bool {
+        lhs.raceId == rhs.raceId &&
+            lhs.championshipId == rhs.championshipId &&
+            lhs.raceName == rhs.raceName &&
+            lhs.laps == rhs.laps &&
+            lhs.round == rhs.round &&
+            lhs.url == rhs.url &&
+            lhs.schedule == rhs.schedule &&
+            lhs.circuit == rhs.circuit &&
+            lhs.fastLap == rhs.fastLap &&
+            lhs.winner == rhs.winner &&
+            lhs.teamWinner == rhs.teamWinner
+    }
+
     func days() -> String {
         let formatter = ISO8601DateFormatter()
         formatter.formatOptions = [.withFullDate]
-        
+
         guard let fp1DateString = schedule.fp1.date,
               let raceDateString = schedule.race.date,
               let fp1Date = formatter.date(from: fp1DateString),
               let raceDate = formatter.date(from: raceDateString) else {
             return ""
         }
-        
+
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd"
         dateFormatter.timeZone = TimeZone(identifier: "UTC")
-        
+
         let fp1Day = dateFormatter.string(from: fp1Date)
         let raceDay = dateFormatter.string(from: raceDate)
-        
+
         return "\(fp1Day)-\(raceDay)"
     }
-    
+
     func months() -> String {
         let formatter = ISO8601DateFormatter()
         formatter.formatOptions = [.withFullDate]
         formatter.timeZone = TimeZone(identifier: "UTC")
-        
+
         guard let fp1DateString = schedule.fp1.date,
               let raceDateString = schedule.race.date,
               let fp1Date = formatter.date(from: fp1DateString),
               let raceDate = formatter.date(from: raceDateString) else {
             return ""
         }
-                
+
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MMM"
         dateFormatter.timeZone = TimeZone(identifier: "UTC")
-        
+
         let fp1Month = dateFormatter.string(from: fp1Date)
         let raceMonth = dateFormatter.string(from: raceDate)
-        
+
         return fp1Month == raceMonth ? raceMonth : "\(fp1Month)-\(raceMonth)"
     }
 }
@@ -91,40 +105,49 @@ extension Race {
         round: 1,
         url: "https://en.wikipedia.org/wiki/2025_Australian_Grand_Prix",
         schedule:
-            RaceSchedule(
-                race: RaceSession(date: "2025-03-16", time: "04:00:00Z"),
-                qualy: RaceSession(date: "2025-03-15", time: "05:00:00Z"),
-                fp1: RaceSession(date: "2025-03-14", time: "01:30:00Z"),
-                fp2: nil,
-                fp3: nil,
-                sprintQualy: nil,
-                sprintRace: nil
+        RaceSchedule(
+            race: RaceSession(
+                date: RaceSession.mockSessionDate(daysFromToday: -1),
+                time: "04:00:00Z"
             ),
+            qualy: RaceSession(
+                date: RaceSession.mockSessionDate(daysFromToday: -2),
+                time: "05:00:00Z"
+            ),
+            fp1: RaceSession(
+                date: RaceSession.mockSessionDate(daysFromToday: -3),
+                time: "01:30:00Z"
+            ),
+            fp2: nil,
+            fp3: nil,
+            sprintQualy: nil,
+            sprintRace: nil
+        ),
         circuit:
-            Circuit(
-                circuitId: "albert_park",
-                circuitName: "Albert Park Circuit",
-                country: "Australia",
-                city: "Melbourne",
-                circuitLength: "5278km",
-                lapRecord: "1:19:813",
-                firstParticipationYear: 1996,
-                corners: 14,
-                fastestLapDriverId: "leclerc",
-                fastestLapTeamId: "ferrari",
-                fastestLapYear: 2024,
-                url: "https://en.wikipedia.org/wiki/Albert_Park_Circuit"
-            ),
+        Circuit(
+            circuitId: "albert_park",
+            circuitName: "Albert Park Circuit",
+            country: "Australia",
+            city: "Melbourne",
+            circuitLength: "5278km",
+            lapRecord: "1:19:813",
+            firstParticipationYear: 1996,
+            corners: 14,
+            fastestLapDriverId: "leclerc",
+            fastestLapTeamId: "ferrari",
+            fastestLapYear: 2024,
+            url: "https://en.wikipedia.org/wiki/Albert_Park_Circuit"
+        ),
         fastLap:
-            RaceFastLap(
-                time: "1:22.167",
-                driverId: "norris",
-                teamId: TeamID.McLaren
-            ),
+        RaceFastLap(
+            time: "1:22.167",
+            driverId: "norris",
+            teamId: TeamID.McLaren
+        ),
         winner: Driver.mockNorris,
         teamWinner: Team.mockMcLaren
     )
-    
+
     static let mockSpain = Race(
         raceId: "spanish_2025",
         championshipId: "f1_2025",
@@ -133,40 +156,49 @@ extension Race {
         round: 9,
         url: "https://en.wikipedia.org/wiki/2025_Spanish_Grand_Prix",
         schedule:
-            RaceSchedule(
-                race: RaceSession(date: "2025-06-01", time: "13:00:00Z"),
-                qualy: RaceSession(date: "2025-05-31", time: "14:00:00Z"),
-                fp1: RaceSession(date: "2025-05-30", time: "11:30:00Z"),
-                fp2: nil,
-                fp3: nil,
-                sprintQualy: nil,
-                sprintRace: nil
+        RaceSchedule(
+            race: RaceSession(
+                date: RaceSession.mockSessionDate(daysFromToday: 3),
+                time: "04:00:00Z"
             ),
+            qualy: RaceSession(
+                date: RaceSession.mockSessionDate(daysFromToday: 2),
+                time: "05:00:00Z"
+            ),
+            fp1: RaceSession(
+                date: RaceSession.mockSessionDate(daysFromToday: 1),
+                time: "01:30:00Z"
+            ),
+            fp2: nil,
+            fp3: nil,
+            sprintQualy: nil,
+            sprintRace: nil
+        ),
         circuit:
-            Circuit(
-                circuitId: "montmelo",
-                circuitName: "Circuit de Barcelona-Catalunya",
-                country: "Spain",
-                city: "Barcelona",
-                circuitLength: "4657km",
-                lapRecord: "1:16:330",
-                firstParticipationYear: 1991,
-                corners: 14,
-                fastestLapDriverId: "max_verstappen",
-                fastestLapTeamId: "red_bull",
-                fastestLapYear: 2023,
-                url: "https://en.wikipedia.org/wiki/Circuit_de_Barcelona-Catalunya"
-            ),
+        Circuit(
+            circuitId: "montmelo",
+            circuitName: "Circuit de Barcelona-Catalunya",
+            country: "Spain",
+            city: "Barcelona",
+            circuitLength: "4657km",
+            lapRecord: "1:16:330",
+            firstParticipationYear: 1991,
+            corners: 14,
+            fastestLapDriverId: "max_verstappen",
+            fastestLapTeamId: "red_bull",
+            fastestLapYear: 2023,
+            url: "https://en.wikipedia.org/wiki/Circuit_de_Barcelona-Catalunya"
+        ),
         fastLap:
-            RaceFastLap(
-                time: nil,
-                driverId: nil,
-                teamId: nil
-            ),
+        RaceFastLap(
+            time: nil,
+            driverId: nil,
+            teamId: nil
+        ),
         winner: nil,
         teamWinner: nil
     )
-        
+
     static func mockRaces() -> [Race] {
         return [mockAustralia, mockSpain]
     }

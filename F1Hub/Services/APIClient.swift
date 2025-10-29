@@ -5,11 +5,12 @@
 //  Created by Marcos Morales on 11/04/2025.
 //
 
-import Foundation
 import Alamofire
+import Foundation
 
 // MARK: - API Error
-enum APIError: Error, LocalizedError {
+
+enum APIError: Error, LocalizedError, Equatable {
     case invalidURL
     case networkError(Error)
     case invalidResponse
@@ -20,19 +21,37 @@ enum APIError: Error, LocalizedError {
         switch self {
         case .invalidURL:
             return "Invalid URL provided."
-        case .networkError(let error):
+        case let .networkError(error):
             return "Network error: \(error.localizedDescription)"
         case .invalidResponse:
             return "Invalid response from server."
-        case .decodingError(let error):
+        case let .decodingError(error):
             return "Failed to decode response: \(error.localizedDescription)"
-        case .serverError(let statusCode):
+        case let .serverError(statusCode):
             return "Server error with status code: \(statusCode)"
+        }
+    }
+
+    static func == (lhs: APIError, rhs: APIError) -> Bool {
+        switch (lhs, rhs) {
+        case (.invalidURL, .invalidURL):
+            return true
+        case (.invalidResponse, .invalidResponse):
+            return true
+        case let (.serverError(lhsStatus), .serverError(rhsStatus)):
+            return lhsStatus == rhsStatus
+        case let (.networkError(lhsError), .networkError(rhsError)):
+            return lhsError.localizedDescription == rhsError.localizedDescription
+        case let (.decodingError(lhsError), .decodingError(rhsError)):
+            return lhsError.localizedDescription == rhsError.localizedDescription
+        default:
+            return false
         }
     }
 }
 
 // MARK: - API Client
+
 class APIClient {
     static let shared = APIClient()
     private let session: Session
@@ -59,16 +78,16 @@ class APIClient {
                 parameters: parameters,
                 encoding: encoding,
                 headers: headers
-            ).validate { request, response, data in
-                guard (200...299).contains(response.statusCode) else {
+            ).validate { _, response, _ in
+                guard (200 ... 299).contains(response.statusCode) else {
                     return .failure(APIError.serverError(statusCode: response.statusCode))
                 }
                 return .success(())
             }.responseDecodable(of: T.self) { response in
                 switch response.result {
-                case .success(let value):
+                case let .success(value):
                     continuation.resume(returning: value)
-                case .failure(let error):
+                case let .failure(error):
                     if let underlyingError = error.underlyingError {
                         continuation.resume(throwing: APIError.networkError(underlyingError))
                     } else if response.data == nil {

@@ -11,7 +11,12 @@ class StandingsViewModel: BaseViewModel {
     @Published var driversStandings: [StandingsEntry] = []
     @Published var teamsStandings: [StandingsEntry] = []
 
-    private let f1APIService = F1APIService()
+    private let f1APIService: F1APIServiceProtocol
+
+    init(f1APIService: F1APIServiceProtocol = F1APIService()) {
+        self.f1APIService = f1APIService
+        super.init()
+    }
 
     @MainActor
     func fetchCurrentDriversStandings() async {
