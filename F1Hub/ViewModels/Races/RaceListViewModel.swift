@@ -12,7 +12,7 @@ class RaceListViewModel: BaseViewModel {
 
     private let f1APIService: F1APIServiceProtocol
 
-    init(f1APIService: F1APIServiceProtocol = F1APIService()) {
+    init(f1APIService: F1APIServiceProtocol = AppDependencyContainer.shared.f1APIService) {
         self.f1APIService = f1APIService
         super.init()
     }

@@ -12,25 +12,25 @@ import XCTest
 final class TeamDetailViewModelTests: XCTestCase {
     private var viewModel: TeamDetailViewModel!
     private var mockF1Service: MockF1APIService!
-    private var mockWikipediaService: MockWikipediaAPIService!
+    private var mockWikipediaAPIService: MockWikipediaAPIService!
     private var cancellables: Set<AnyCancellable> = []
 
     override func setUp() {
         super.setUp()
         mockF1Service = MockF1APIService()
-        mockWikipediaService = MockWikipediaAPIService()
+        mockWikipediaAPIService = MockWikipediaAPIService()
         viewModel = TeamDetailViewModel(
             teamId: Team.mockRedBull.id,
             wikiUrl: Team.mockRedBull.url,
             f1APIService: mockF1Service,
-            wikipediaService: mockWikipediaService
+            wikipediaAPIService: mockWikipediaAPIService
         )
     }
 
     override func tearDown() {
         viewModel = nil
         mockF1Service = nil
-        mockWikipediaService = nil
+        mockWikipediaAPIService = nil
         cancellables.removeAll()
         super.tearDown()
     }
@@ -43,7 +43,7 @@ final class TeamDetailViewModelTests: XCTestCase {
         mockF1Service.fetchTeamDetailHandler = { _ in
             expectedTeam
         }
-        mockWikipediaService.fetchSummaryHandler = { _ in
+        mockWikipediaAPIService.fetchSummaryHandler = { _ in
             expectedSummary
         }
 
@@ -64,7 +64,7 @@ final class TeamDetailViewModelTests: XCTestCase {
         mockF1Service.fetchTeamDetailHandler = { _ in
             throw expectedError
         }
-        mockWikipediaService.fetchSummaryHandler = { _ in
+        mockWikipediaAPIService.fetchSummaryHandler = { _ in
             expectedSummary
         }
 
@@ -90,7 +90,7 @@ final class TeamDetailViewModelTests: XCTestCase {
         mockF1Service.fetchTeamDetailHandler = { _ in
             expectedTeam
         }
-        mockWikipediaService.fetchSummaryHandler = { _ in
+        mockWikipediaAPIService.fetchSummaryHandler = { _ in
             throw expectedError
         }
 

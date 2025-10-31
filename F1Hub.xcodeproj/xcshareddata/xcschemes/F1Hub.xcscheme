@@ -41,6 +41,17 @@
                ReferencedContainer = "container:F1Hub.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "E03640342EB3CCEF00D616DC"
+               BuildableName = "F1HubUITests.xctest"
+               BlueprintName = "F1HubUITests"
+               ReferencedContainer = "container:F1Hub.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

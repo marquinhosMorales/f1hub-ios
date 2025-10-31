@@ -12,25 +12,25 @@ import XCTest
 final class DriverDetailViewModelTests: XCTestCase {
     private var viewModel: DriverDetailViewModel!
     private var mockF1Service: MockF1APIService!
-    private var mockWikipediaService: MockWikipediaAPIService!
+    private var mockWikipediaAPIService: MockWikipediaAPIService!
     private var cancellables: Set<AnyCancellable> = []
 
     override func setUp() {
         super.setUp()
         mockF1Service = MockF1APIService()
-        mockWikipediaService = MockWikipediaAPIService()
+        mockWikipediaAPIService = MockWikipediaAPIService()
         viewModel = DriverDetailViewModel(
             driverId: Driver.mockVerstappen.id,
             wikiUrl: Driver.mockVerstappen.url,
             f1APIService: mockF1Service,
-            wikipediaService: mockWikipediaService
+            wikipediaAPIService: mockWikipediaAPIService
         )
     }
 
     override func tearDown() {
         viewModel = nil
         mockF1Service = nil
-        mockWikipediaService = nil
+        mockWikipediaAPIService = nil
         cancellables.removeAll()
         super.tearDown()
     }
@@ -43,7 +43,7 @@ final class DriverDetailViewModelTests: XCTestCase {
         mockF1Service.fetchDriverDetailHandler = { _ in
             expectedDriver
         }
-        mockWikipediaService.fetchSummaryHandler = { _ in
+        mockWikipediaAPIService.fetchSummaryHandler = { _ in
             expectedSummary
         }
 
@@ -65,7 +65,7 @@ final class DriverDetailViewModelTests: XCTestCase {
         mockF1Service.fetchDriverDetailHandler = { _ in
             throw expectedError
         }
-        mockWikipediaService.fetchSummaryHandler = { _ in
+        mockWikipediaAPIService.fetchSummaryHandler = { _ in
             expectedSummary
         }
 
@@ -92,7 +92,7 @@ final class DriverDetailViewModelTests: XCTestCase {
         mockF1Service.fetchDriverDetailHandler = { _ in
             expectedDriver
         }
-        mockWikipediaService.fetchSummaryHandler = { _ in
+        mockWikipediaAPIService.fetchSummaryHandler = { _ in
             throw expectedError
         }
 
@@ -117,7 +117,7 @@ final class DriverDetailViewModelTests: XCTestCase {
             try await Task.sleep(nanoseconds: 1000000) // Simulate delay
             return Driver.mockVerstappen
         }
-        mockWikipediaService.fetchSummaryHandler = { _ in
+        mockWikipediaAPIService.fetchSummaryHandler = { _ in
             Driver.mockVerstappenWikipedia
         }
 
