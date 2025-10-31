@@ -24,7 +24,7 @@ struct SegmentedView: View {
         initialSelection: String? = nil,
         backgroundColor: Color = .background,
         activeColor: Color = .accent,
-        inactiveColor: Color = .lightGray,
+        inactiveColor: Color = .inactive,
         font: Font = .custom("Formula1-Display-Regular", size: 14),
         animation: Animation = .spring(response: 0.3, dampingFraction: 0.7)
     ) {
