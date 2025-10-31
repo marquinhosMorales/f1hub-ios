@@ -14,14 +14,14 @@ struct StandingsRow: View {
         VStack(alignment: .leading) {
             if let driver = standingsEntry.driver {
                 Text("\(driver.name) \(driver.surname)")
-                    .foregroundColor(standingsEntry.isLeader ? .white : .primary)
+                    .foregroundColor(standingsEntry.isLeader ? .gold : .primary)
                     .boldTextStyle(16)
                 Text(standingsEntry.teamId.name())
-                    .foregroundColor(standingsEntry.isLeader ? .white : .secondary)
+                    .foregroundColor(standingsEntry.isLeader ? .gold.opacity(0.75) : .secondary)
                     .regularTextStyle(16)
             } else {
                 Text(standingsEntry.teamId.name())
-                    .foregroundColor(standingsEntry.isLeader ? .white : .primary)
+                    .foregroundColor(standingsEntry.isLeader ? .gold : .primary)
                     .boldTextStyle(16)
             }
         }
@@ -29,17 +29,34 @@ struct StandingsRow: View {
 
     var body: some View {
         HStack {
-            Text(String(standingsEntry.position))
-                .foregroundColor(standingsEntry.isLeader ? .white : .primary)
-                .boldTextStyle(16)
-                .monospacedDigit()
-                .frame(width: 30, alignment: .center)
+            Group {
+                if standingsEntry.isLeader {
+                    HStack(spacing: 0) {
+                        Image(systemName: "laurel.leading")
+                            .font(.system(size: 12))
+                            .foregroundStyle(.gold)
+                        Image(systemName: "1.circle.fill")
+                            .font(.system(size: 18)) // Smaller than .title3 to fit
+                            .foregroundStyle(.gold)
+                        Image(systemName: "laurel.trailing")
+                            .font(.system(size: 12))
+                            .foregroundStyle(.gold)
+                    }
+                } else {
+                    Text(String(standingsEntry.position))
+                        .foregroundColor(.primary)
+                        .boldTextStyle(16)
+                        .monospacedDigit()
+                }
+            }
+            .frame(width: 40)
 
             Rectangle()
                 .fill(standingsEntry.teamId.color())
                 .frame(width: 4)
                 .frame(maxHeight: 80)
-                .padding(.horizontal, 8)
+                .padding(.leading, 4)
+                .padding(.trailing, 8)
 
             entryInfo
                 .frame(minHeight: 50)
@@ -47,10 +64,9 @@ struct StandingsRow: View {
             Spacer()
 
             Text("\(standingsEntry.points) PTS")
-                .foregroundColor(standingsEntry.isLeader ? .white : .primary)
+                .foregroundColor(standingsEntry.isLeader ? .gold : .primary)
                 .boldTextStyle(12)
         }
-        .background(standingsEntry.isLeader ? .standingsLeaderBackground : .clear)
     }
 }
 

@@ -40,7 +40,7 @@ struct StandingsView: View {
                                         StandingsRow(standingsEntry: standingsEntry)
                                     }
                                     .rowStyle()
-                                    .background(standingsEntry.isLeader ? .standingsLeaderBackground : .background)
+                                    .rowBorder(color: standingsEntry.isLeader ? .gold : .clear)
                                 } else {
                                     NavigationLink(
                                         destination: TeamDetailView(teamId: standingsEntry.teamId.rawValue,
@@ -49,7 +49,7 @@ struct StandingsView: View {
                                         StandingsRow(standingsEntry: standingsEntry)
                                     }
                                     .rowStyle()
-                                    .background(standingsEntry.isLeader ? .standingsLeaderBackground : .background)
+                                    .rowBorder(color: standingsEntry.isLeader ? .gold : .clear)
                                 }
                             }
                         }
