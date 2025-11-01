@@ -10,7 +10,12 @@ import Foundation
 class RaceListViewModel: BaseViewModel {
     @Published var data: [Race] = []
 
-    private let f1APIService = F1APIService()
+    private let f1APIService: F1APIServiceProtocol
+
+    init(f1APIService: F1APIServiceProtocol = AppDependencyContainer.shared.f1APIService) {
+        self.f1APIService = f1APIService
+        super.init()
+    }
 
     private var dateFormatter: DateFormatter {
         let formatter = DateFormatter()
@@ -42,7 +47,7 @@ class RaceListViewModel: BaseViewModel {
     }
 
     @MainActor
-    func fetchCurrentraces() async {
+    func fetchCurrentRaces() async {
         state = .loading
 
         do {

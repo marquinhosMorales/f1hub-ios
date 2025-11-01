@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Driver: Codable, Identifiable {
+struct Driver: Codable, Identifiable, Equatable {
     let driverId: String?
     let name: String
     let surname: String
@@ -33,6 +33,19 @@ struct Driver: Codable, Identifiable {
         case url
         case teamId
         case country
+    }
+
+    static func == (lhs: Driver, rhs: Driver) -> Bool {
+        lhs.driverId == rhs.driverId &&
+            lhs.name == rhs.name &&
+            lhs.surname == rhs.surname &&
+            lhs.nationality == rhs.nationality &&
+            lhs.birthday == rhs.birthday &&
+            lhs.number == rhs.number &&
+            lhs.shortName == rhs.shortName &&
+            lhs.url == rhs.url &&
+            lhs.teamId == rhs.teamId &&
+            lhs.country == rhs.country
     }
 
     var driverName: String {

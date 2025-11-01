@@ -25,13 +25,13 @@ struct StandingsSmallView: View {
                 HStack(spacing: 0) {
                     Image(systemName: "laurel.leading")
                         .font(.system(size: 14))
-                        .foregroundStyle(.yellow)
+                        .foregroundStyle(.gold)
                     Image(systemName: "1.circle.fill")
                         .font(.title3)
-                        .foregroundStyle(.yellow)
+                        .foregroundStyle(.gold)
                     Image(systemName: "laurel.trailing")
                         .font(.system(size: 14))
-                        .foregroundStyle(.yellow)
+                        .foregroundStyle(.gold)
                 }
                 Text("\(type == .drivers ? "Drivers" : "Teams") Leader")
                     .font(.headline)

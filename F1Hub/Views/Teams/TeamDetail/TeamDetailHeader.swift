@@ -35,14 +35,15 @@ struct TeamDetailHeader: View {
                             downloadFailed = true
                         }
                         .resizable()
-                        .scaledToFill()
-                        .frame(width: 200, alignment: .center)
+                        .scaledToFit()
+                        .frame(height: 150, alignment: .center)
+                        .padding(.horizontal, 32)
+                        .padding(.vertical, 24)
                 } else if downloadFailed || isRunningInPreview() {
                     fallbackImage
                 }
             }
             .frame(maxWidth: .infinity)
-            .padding(.vertical, 32)
             .background(color)
             .clipShape(RoundedRectangle(cornerRadius: 16))
             .shadow(radius: 4)

@@ -11,15 +11,17 @@ class DriverDetailViewModel: BaseViewModel {
     @Published var driver: Driver?
     @Published var summary: WikipediaSummary?
 
-    private let f1APIService = F1APIService()
-    private let wikipediaService = WikipediaAPIService()
+    private let f1APIService: F1APIServiceProtocol
+    private let wikipediaAPIService: WikipediaAPIServiceProtocol
 
     private let driverId: String
     let wikiUrl: String
 
-    init(driverId: String, wikiUrl: String) {
+    init(driverId: String, wikiUrl: String, f1APIService: F1APIServiceProtocol = AppDependencyContainer.shared.f1APIService, wikipediaAPIService: WikipediaAPIServiceProtocol = AppDependencyContainer.shared.wikipediaAPIService) {
         self.driverId = driverId
         self.wikiUrl = wikiUrl
+        self.f1APIService = f1APIService
+        self.wikipediaAPIService = wikipediaAPIService
         super.init()
     }
 
@@ -29,7 +31,7 @@ class DriverDetailViewModel: BaseViewModel {
         do {
             // Fetch both in parallel
             async let driverDetailTask: Driver = f1APIService.fetchDriverDetail(driverId: driverId)
-            async let wikiTask: WikipediaSummary = wikipediaService.fetchSummary(from: wikiUrl)
+            async let wikiTask: WikipediaSummary = wikipediaAPIService.fetchSummary(from: wikiUrl)
 
             // Wait for both to finish
             let (driverResult, wikiResult) = try await (driverDetailTask, wikiTask)

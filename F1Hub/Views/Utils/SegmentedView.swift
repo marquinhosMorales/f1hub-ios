@@ -14,30 +14,30 @@ struct SegmentedView: View {
     let inactiveColor: Color
     let font: Font
     let animation: Animation
-    
+
     @Namespace private var namespace
     @Binding var selected: Int
-    
+
     init(
         segments: [String],
         selected: Binding<Int>,
         initialSelection: String? = nil,
         backgroundColor: Color = .background,
         activeColor: Color = .accent,
-        inactiveColor: Color = .lightGray,
+        inactiveColor: Color = .inactive,
         font: Font = .custom("Formula1-Display-Regular", size: 14),
         animation: Animation = .spring(response: 0.3, dampingFraction: 0.7)
     ) {
         self.segments = segments
-        
+
         self.backgroundColor = backgroundColor
         self.activeColor = activeColor
         self.inactiveColor = inactiveColor
         self.font = font
         self.animation = animation
-        self._selected = selected
+        _selected = selected
     }
-    
+
     var body: some View {
         ZStack(alignment: .bottom) {
             // Segments
@@ -55,10 +55,11 @@ struct SegmentedView: View {
                             .padding(.vertical, 16)
                     }
                     .frame(maxWidth: .infinity)
+                    .accessibilityIdentifier("SegmentedView[\(index)]")
                 }
             }
             .background(backgroundColor)
-            
+
             // Indicator
             GeometryReader { geo in
                 let segmentWidth = geo.size.width / CGFloat(segments.count)
@@ -78,7 +79,7 @@ struct SegmentedView: View {
 
 #Preview("Light Mode") {
     @Previewable @State var selected: Int = 0
-    
+
     return SegmentedView(
         segments: ["Drivers", "Teams"],
         selected: $selected

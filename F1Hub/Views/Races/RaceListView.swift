@@ -9,13 +9,13 @@ import SwiftUI
 
 struct RaceListView: View {
     @StateObject private var viewModel = RaceListViewModel()
-    
+
     @State private var selectedSegment = 0
-    
+
     init(viewModel: RaceListViewModel = RaceListViewModel()) {
-        self._viewModel = StateObject(wrappedValue: viewModel)
+        _viewModel = StateObject(wrappedValue: viewModel)
     }
-        
+
     var body: some View {
         NavigationView {
             ZStack {
@@ -27,7 +27,7 @@ struct RaceListView: View {
                         activeColor: .white,
                         inactiveColor: .white.opacity(0.6)
                     )
-                                
+
                     List {
                         ForEach(selectedSegment == 0 ? viewModel.upcomingRaces : viewModel.pastRaces) { race in
                             RaceRow(race: race)
@@ -43,7 +43,7 @@ struct RaceListView: View {
                             dismissButton: .default(Text("OK"))
                         )
                     }
-                    
+
                     if viewModel.state == .loading {
                         ProgressView()
                             .progressViewStyle(.circular)
@@ -52,7 +52,7 @@ struct RaceListView: View {
             }
             .task {
                 if !isRunningInPreview() {
-                    await viewModel.fetchCurrentraces()
+                    await viewModel.fetchCurrentRaces()
                 }
             }
         }

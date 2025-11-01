@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct Team: Codable, Identifiable {
+struct Team: Codable, Identifiable, Equatable {
     let teamId: TeamID?
     let teamName: String
     let country: String?
@@ -29,6 +29,17 @@ struct Team: Codable, Identifiable {
         case constructorsChampionships
         case driversChampionships
         case url
+    }
+
+    static func == (lhs: Team, rhs: Team) -> Bool {
+        lhs.teamId == rhs.teamId &&
+            lhs.teamName == rhs.teamName &&
+            lhs.country == rhs.country &&
+            lhs.teamNationality == rhs.teamNationality &&
+            lhs.firstAppearance == rhs.firstAppearance &&
+            lhs.constructorsChampionships == rhs.constructorsChampionships &&
+            lhs.driversChampionships == rhs.driversChampionships &&
+            lhs.url == rhs.url
     }
 }
 

@@ -7,7 +7,13 @@
 
 import Foundation
 
-struct WikipediaAPIService {
+// MARK: - WikipediaAPI Protocols for Dependency Injection
+
+protocol WikipediaAPIServiceProtocol {
+    func fetchSummary(from url: String) async throws -> WikipediaSummary
+}
+
+struct WikipediaAPIService: WikipediaAPIServiceProtocol {
     private let client = APIClient.shared
     private let baseURL = "https://en.wikipedia.org/api/rest_v1/page/summary"
 

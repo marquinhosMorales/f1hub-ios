@@ -5,7 +5,7 @@
 //  Created by Marcos Morales on 30/04/2025.
 //
 
-struct StandingsEntry: Codable, Identifiable {
+struct StandingsEntry: Codable, Identifiable, Equatable {
     let classificationId: Int
     let teamId: TeamID
     let points: Int
@@ -28,6 +28,17 @@ struct StandingsEntry: Codable, Identifiable {
         case team
         case driverId
         case driver
+    }
+
+    static func == (lhs: StandingsEntry, rhs: StandingsEntry) -> Bool {
+        lhs.classificationId == rhs.classificationId &&
+            lhs.teamId == rhs.teamId &&
+            lhs.points == rhs.points &&
+            lhs.position == rhs.position &&
+            lhs.wins == rhs.wins &&
+            lhs.team == rhs.team &&
+            lhs.driverId == rhs.driverId &&
+            lhs.driver == rhs.driver
     }
 
     var isLeader: Bool {

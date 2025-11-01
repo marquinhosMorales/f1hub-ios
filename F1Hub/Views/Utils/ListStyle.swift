@@ -10,7 +10,7 @@ import SwiftUI
 struct ListStyle: ViewModifier {
     func body(content: Content) -> some View {
         content
-            .listStyle(PlainListStyle())
+            .listStyle(.plain)
             .background(Color.background)
     }
 }
