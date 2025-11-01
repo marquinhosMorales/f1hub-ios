@@ -155,10 +155,10 @@ final class F1HubUITests: XCTestCase {
 
         // Assert drivers standings
         driversSegment.tap()
-        XCTAssertTrue(app.cells.staticTexts["1"].exists) // Position
+        XCTAssertTrue(app.cells.images["1.circle.fill"].exists) // Leader
         XCTAssertTrue(app.cells.staticTexts["Max Verstappen"].exists)
         XCTAssertTrue(app.cells.staticTexts["100 PTS"].exists) // Points
-        XCTAssertTrue(app.cells.staticTexts["2"].exists)
+        XCTAssertTrue(app.cells.staticTexts["2"].exists) // Position
         XCTAssertTrue(app.cells.staticTexts["Lando Norris"].exists)
         XCTAssertTrue(app.cells.staticTexts["50 PTS"].exists)
         XCTAssertTrue(app.cells.staticTexts["3"].exists)
