@@ -23,7 +23,7 @@ struct TeamDetailView: View {
             ScrollView {
                 LazyVStack(spacing: 10) {
                     TeamDetailHeader(name: viewModel.team?.teamName,
-                                     color: viewModel.team?.teamId?.color(),
+                                     color: viewModel.team?.teamId?.color(with: 0.5),
                                      imageUrl: viewModel.summary?.originalimage ?? viewModel.summary?.thumbnail)
 
                     TeamDetailBody(team: viewModel.team,
