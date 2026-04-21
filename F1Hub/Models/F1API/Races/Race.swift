@@ -11,7 +11,7 @@ struct Race: Codable, Identifiable, Equatable {
     let raceId: String
     let championshipId: String
     let raceName: String
-    let laps: Int
+    let laps: Int?
     let round: Int
     let url: String
 
