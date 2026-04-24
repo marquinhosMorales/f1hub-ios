@@ -34,6 +34,9 @@ struct RaceListView: View {
                                 .rowStyle()
                         }
                     }
+                    .refreshable {
+                        await viewModel.fetchCurrentRaces()
+                    }
                     .navigationBarStyle(withTitle: "Races")
                     .listStyle()
                     .alert(isPresented: viewModel.isPresentingError) {

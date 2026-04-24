@@ -54,6 +54,13 @@ struct StandingsView: View {
                             }
                         }
                     }
+                    .refreshable {
+                        if selectedSegment == 0 {
+                            await viewModel.fetchCurrentDriversStandings()
+                        } else {
+                            await viewModel.fetchCurrentTeamsStandings()
+                        }
+                    }
                     .navigationBarStyle(withTitle: "Standings")
                     .listStyle()
                     .alert(isPresented: viewModel.isPresentingError) {

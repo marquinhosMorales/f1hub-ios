@@ -27,6 +27,9 @@ struct DriverListView: View {
                         .rowStyle()
                     }
                 }
+                .refreshable {
+                    await viewModel.fetchCurrentDrivers()
+                }
                 .navigationBarStyle(withTitle: "Drivers")
                 .listStyle()
                 .alert(isPresented: viewModel.isPresentingError) {
