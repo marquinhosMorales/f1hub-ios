@@ -43,12 +43,8 @@ struct RaceListView: View {
                             dismissButton: .default(Text("OK"))
                         )
                     }
-
-                    if viewModel.state == .loading {
-                        ProgressView()
-                            .progressViewStyle(.circular)
-                    }
                 }
+                .loadingOverlay(viewModel.state == .loading && viewModel.data.isEmpty)
             }
             .task {
                 if !isRunningInPreview() {

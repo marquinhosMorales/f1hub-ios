@@ -63,12 +63,12 @@ struct StandingsView: View {
                             dismissButton: .default(Text("OK"))
                         )
                     }
-
-                    if viewModel.state == .loading {
-                        ProgressView()
-                            .progressViewStyle(.circular)
-                    }
                 }
+                .loadingOverlay(
+                    viewModel.state == .loading &&
+                    ((selectedSegment == 0 && viewModel.driversStandings.isEmpty) ||
+                     (selectedSegment == 1 && viewModel.teamsStandings.isEmpty))
+                )
             }
             .task {
                 if !isRunningInPreview() {

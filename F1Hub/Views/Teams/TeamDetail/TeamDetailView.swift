@@ -34,15 +34,8 @@ struct TeamDetailView: View {
             .refreshable {
                 await viewModel.fetchTeamDetails()
             }
-
-            if viewModel.state == .loading {
-                ProgressView()
-                    .progressViewStyle(.circular)
-                    .scaleEffect(1.5)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .background(Color.black.opacity(0.3))
-            }
         }
+        .loadingOverlay(viewModel.state == .loading, dimBackground: true)
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 if let wikiUrl = URL(string: viewModel.wikiUrl) {
