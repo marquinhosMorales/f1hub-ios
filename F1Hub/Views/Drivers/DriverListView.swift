@@ -27,6 +27,9 @@ struct DriverListView: View {
                         .rowStyle()
                     }
                 }
+                .refreshable {
+                    await viewModel.fetchCurrentDrivers()
+                }
                 .navigationBarStyle(withTitle: "Drivers")
                 .listStyle()
                 .alert(isPresented: viewModel.isPresentingError) {
@@ -36,12 +39,8 @@ struct DriverListView: View {
                         dismissButton: .default(Text("OK"))
                     )
                 }
-
-                if viewModel.state == .loading {
-                    ProgressView()
-                        .progressViewStyle(.circular)
-                }
             }
+            .loadingOverlay(viewModel.state == .loading && viewModel.data.isEmpty)
             .task {
                 if !isRunningInPreview() {
                     await viewModel.fetchCurrentDrivers()

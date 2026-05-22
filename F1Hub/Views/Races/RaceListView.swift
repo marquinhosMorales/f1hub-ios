@@ -34,6 +34,9 @@ struct RaceListView: View {
                                 .rowStyle()
                         }
                     }
+                    .refreshable {
+                        await viewModel.fetchCurrentRaces()
+                    }
                     .navigationBarStyle(withTitle: "Races")
                     .listStyle()
                     .alert(isPresented: viewModel.isPresentingError) {
@@ -43,12 +46,8 @@ struct RaceListView: View {
                             dismissButton: .default(Text("OK"))
                         )
                     }
-
-                    if viewModel.state == .loading {
-                        ProgressView()
-                            .progressViewStyle(.circular)
-                    }
                 }
+                .loadingOverlay(viewModel.state == .loading && viewModel.data.isEmpty)
             }
             .task {
                 if !isRunningInPreview() {

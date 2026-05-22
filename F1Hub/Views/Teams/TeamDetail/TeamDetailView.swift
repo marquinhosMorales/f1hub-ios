@@ -23,7 +23,7 @@ struct TeamDetailView: View {
             ScrollView {
                 LazyVStack(spacing: 10) {
                     TeamDetailHeader(name: viewModel.team?.teamName,
-                                     color: viewModel.team?.teamId?.color(),
+                                     color: viewModel.team?.teamId?.color(with: 0.5),
                                      imageUrl: viewModel.summary?.originalimage ?? viewModel.summary?.thumbnail)
 
                     TeamDetailBody(team: viewModel.team,
@@ -34,15 +34,8 @@ struct TeamDetailView: View {
             .refreshable {
                 await viewModel.fetchTeamDetails()
             }
-
-            if viewModel.state == .loading {
-                ProgressView()
-                    .progressViewStyle(.circular)
-                    .scaleEffect(1.5)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .background(Color.black.opacity(0.3))
-            }
         }
+        .loadingOverlay(viewModel.state == .loading, dimBackground: true)
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 if let wikiUrl = URL(string: viewModel.wikiUrl) {

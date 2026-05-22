@@ -102,7 +102,8 @@ enum TeamID: String, Codable, CaseIterable {
     case AstonMartin = "aston_martin"
     case RacingBulls = "rb"
     case Alpine = "alpine"
-    case Sauber = "sauber"
+    case Audi = "audi"
+    case Cadillac = "cadillac"
     case unknown
 
     init(from decoder: Decoder) throws {
@@ -123,8 +124,6 @@ enum TeamID: String, Codable, CaseIterable {
             return "Aston Martin"
         } else if self == .RacingBulls {
             return "Racing Bulls"
-        } else if self == .Sauber {
-            return "Kick Sauber"
         } else if self == .unknown {
             return ""
         } else {
@@ -132,7 +131,14 @@ enum TeamID: String, Codable, CaseIterable {
         }
     }
 
-    func color() -> Color {
-        return self == .unknown ? .black : Color(String(describing: self))
+    func color(with opacity: Double = 1.0) -> Color {
+        let baseColor = self == .unknown ? .black : Color(String(describing: self))
+        
+        switch self {
+        case .Williams, .Audi:
+            return baseColor.opacity(opacity)
+        default:
+            return baseColor
+        }
     }
 }

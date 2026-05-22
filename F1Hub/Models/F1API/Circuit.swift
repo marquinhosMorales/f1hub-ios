@@ -11,12 +11,12 @@ struct Circuit: Codable, Identifiable, Equatable {
     let country: String
     let city: String
     let circuitLength: String
-    let lapRecord: String
+    let lapRecord: String?
     let firstParticipationYear: Int
     let corners: Int
-    let fastestLapDriverId: String
-    let fastestLapTeamId: String
-    let fastestLapYear: Int
+    let fastestLapDriverId: String?
+    let fastestLapTeamId: String?
+    let fastestLapYear: Int?
     let url: String
 
     // Computed property for Identifiable
